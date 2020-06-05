@@ -4,6 +4,15 @@ public class MenuOption {
     public String description;
     private boolean checked;
 
+    public MenuOption(String description) {
+        this(description, false);
+    }
+
+    public MenuOption(String description, boolean checked) {
+        this.description = description;
+        this.checked = checked;
+    }
+
     public boolean isChecked() {
         return checked;
     }
