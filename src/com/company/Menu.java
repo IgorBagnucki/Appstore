@@ -6,7 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Menu {
-    private ArrayList<MenuOption> options;
+    private ArrayList<MenuOption> options = new ArrayList<>();
     private int selectedOptionIndex;
     Pair<String, String> prompt;
 
@@ -25,7 +25,6 @@ public class Menu {
     public Menu(List<MenuOption> options, Pair<String, String> prompt) {
         selectedOptionIndex = 0;
         this.prompt = new Pair<>(prompt.getKey(), prompt.getValue());
-        this.options = new ArrayList<>();
         this.options.addAll(options);
     }
 

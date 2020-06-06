@@ -14,6 +14,7 @@ public class MenuOption {
     }
 
     public MenuOption(String description, String ...states) {
+        this.description = description;
         for(String state : states) {
             this.states.add(new MenuOptionState(state));
         }
