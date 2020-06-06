@@ -32,15 +32,17 @@ public class Menu {
     @Override
     public String toString() {
         StringBuilder stringedMenu = new StringBuilder();
-        for(int i = 0; i < options.size(); ++i) {
-            MenuOption option = options.get(i);
-            if(i != selectedOptionIndex) {
+        for(int optionIndex = 0; optionIndex < options.size(); ++optionIndex) {
+            MenuOption option = options.get(optionIndex);
+            if(optionIndex != selectedOptionIndex) {
+                stringedMenu.append(" ".repeat(Math.max(0, prompt.getKey().length())));
                 stringedMenu.append(option.toString());
             } else {
                 stringedMenu.append(prompt.getKey());
                 stringedMenu.append(option.toString());
                 stringedMenu.append(prompt.getValue());
             }
+            stringedMenu.append("\n");
         }
         return stringedMenu.toString();
     }
