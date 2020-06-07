@@ -1,8 +1,6 @@
 package com.company;
 
-import java.util.Date;
-import java.util.Dictionary;
-import java.util.Hashtable;
+import java.util.*;
 
 public class Project {
     public enum ComplexityLevel {
@@ -11,11 +9,15 @@ public class Project {
         COMPLICATED
     }
     private String name;
-    private Dictionary<String, Integer> technologyWorkdays = new Hashtable<>();
+    private Technologies<Integer> technologyWorkDays;
     private Human client;
     private Date deadline;
     private Price feeForMissingDeadline;
     private Price price;
-    private int daysBeforePayment;
+    private int daysToWaitBeforePayment;
     private ComplexityLevel complexity;
+
+    public Project(String name, Human client, Date deadline, Price feeForMissingDeadline, Price price, int daysToWaitBeforePayment) {
+
+    }
 }
