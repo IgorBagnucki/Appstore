@@ -1,4 +1,4 @@
 package com.company;
 
-public class Seller {
+public class Seller extends Worker {
 }
