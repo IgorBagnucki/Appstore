@@ -1,6 +1,6 @@
 package com.company;
 
-public class Human {
+abstract public class Human {
     public String firstName;
     public String lastName;
 
