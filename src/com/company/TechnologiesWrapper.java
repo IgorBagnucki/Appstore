@@ -8,13 +8,22 @@ public class TechnologiesWrapper<T> {
     public T wordpress;
     public T prestashop;
 
-    TechnologiesWrapper(T defaultValue) {
+    public TechnologiesWrapper(T defaultValue) {
         frontend = defaultValue;
         backend = defaultValue;
         database = defaultValue;
         mobile = defaultValue;
         wordpress = defaultValue;
         prestashop = defaultValue;
+    }
+
+    public TechnologiesWrapper(TechnologiesWrapper<T> from) {
+        frontend = from.frontend;
+        backend = from.backend;
+        database = from.database;
+        mobile = from.mobile;
+        wordpress = from.wordpress;
+        prestashop = from.prestashop;
     }
 
     TechnologiesWrapper<T> frontend(T value) {
