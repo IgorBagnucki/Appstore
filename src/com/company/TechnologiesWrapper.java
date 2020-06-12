@@ -26,32 +26,32 @@ public class TechnologiesWrapper<T> {
         prestashop = from.prestashop;
     }
 
-    public TechnologiesWrapper<T> frontend(T value) {
+    public TechnologiesWrapper<T> setFrontend(T value) {
         frontend = value;
         return this;
     }
 
-    public TechnologiesWrapper<T> backend(T value) {
+    public TechnologiesWrapper<T> setBackend(T value) {
         backend = value;
         return this;
     }
 
-    public TechnologiesWrapper<T> database(T value) {
+    public TechnologiesWrapper<T> setDatabase(T value) {
         database = value;
         return this;
     }
 
-    public TechnologiesWrapper<T> mobile(T value) {
+    public TechnologiesWrapper<T> setMobile(T value) {
         mobile = value;
         return this;
     }
 
-    public TechnologiesWrapper<T> wordpress(T value) {
+    public TechnologiesWrapper<T> setWordpress(T value) {
         wordpress = value;
         return this;
     }
 
-    public TechnologiesWrapper<T> prestashop(T value) {
+    public TechnologiesWrapper<T> setPrestashop(T value) {
         prestashop = value;
         return this;
     }

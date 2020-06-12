@@ -1,6 +1,8 @@
 package com.company;
 
 public class Player extends Programmer {
+    private int cash;
+
     public Player(
         SeniorityLevel seniorityLevel,
         String firstName,
@@ -8,15 +10,17 @@ public class Player extends Programmer {
         int expectedRemuneration,
         double workAccuracy,
         int maximumDelay,
-        TechnologiesWrapper<Integer> knownTechnologies) {
+        TechnologiesWrapper<Integer> knownTechnologies,
+        int cash) {
         super(
             seniorityLevel,
-                firstName,
-                lastName,
-                expectedRemuneration,
-                workAccuracy,
-                maximumDelay,
-                knownTechnologies);
+            firstName,
+            lastName,
+            expectedRemuneration,
+            workAccuracy,
+            maximumDelay,
+            knownTechnologies);
+        this.cash = cash;
     }
 
     @Override
