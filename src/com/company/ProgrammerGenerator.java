@@ -68,13 +68,8 @@ public class ProgrammerGenerator extends HumanGenerator {
 
     public static Programmer generate() {
         Random random = new Random();
-        int seniorityNumber = random.nextInt(4);
-        // Find a better way to get value from enum
-        Programmer.SeniorityLevel seniority =
-            seniorityNumber==0 ? Programmer.SeniorityLevel.STUDENT :
-            seniorityNumber==1 ? Programmer.SeniorityLevel.JUNIOR :
-            seniorityNumber==2 ? Programmer.SeniorityLevel.MID :
-                                 Programmer.SeniorityLevel.SENIOR;
+        int seniorityIndex = random.nextInt(Programmer.SeniorityLevel.values().length);
+        Programmer.SeniorityLevel seniority = Programmer.SeniorityLevel.values()[seniorityIndex];
         return generate(seniority);
     }
 }
