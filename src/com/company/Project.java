@@ -1,7 +1,5 @@
 package com.company;
 
-import java.util.*;
-
 public class Project {
     public enum ComplexityLevel {
         EASY,
@@ -11,16 +9,16 @@ public class Project {
     private String name;
     private TechnologiesWrapper<Integer> technologyWorkDays;
     private Human client;
-    private Date deadline;
+    private Deadline timeBeforeDeadline;
     private Price feeForMissingDeadline;
     private Price price;
     private int daysToWaitBeforePayment;
     private ComplexityLevel complexity;
 
-    public Project(String name, Human client, Date deadline, Price feeForMissingDeadline, Price price, int daysToWaitBeforePayment, TechnologiesWrapper<Integer> technologyWorkDays) {
+    public Project(String name, Human client, Deadline timeBeforeDeadline, Price feeForMissingDeadline, Price price, int daysToWaitBeforePayment, TechnologiesWrapper<Integer> technologyWorkDays) {
         this.name = name;
         this.client = client;
-        this.deadline = deadline;
+        this.timeBeforeDeadline = timeBeforeDeadline;
         this.feeForMissingDeadline = feeForMissingDeadline;
         this.price = price;
         this.daysToWaitBeforePayment = daysToWaitBeforePayment;
@@ -30,5 +28,16 @@ public class Project {
                 requiredTechnologies==1 ? ComplexityLevel.EASY :
                 requiredTechnologies==2 ? ComplexityLevel.MEDIUM :
                                           ComplexityLevel.COMPLICATED;
+    }
+
+    @Override
+    public String toString() {
+        return    name + "\n"
+                + client + "\n\n"
+                + "time: " + timeBeforeDeadline + "\n"
+                + "fee for delay: " + feeForMissingDeadline + "\n"
+                + "payment: " + price + "\n"
+                + "you'll wait: " + daysToWaitBeforePayment + " for money\n"
+                + "HERE WORKHOURS";
     }
 }
