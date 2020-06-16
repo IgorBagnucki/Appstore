@@ -8,6 +8,10 @@ public class MenuOption {
     private ArrayList<MenuOptionState> states = new ArrayList<>();
     int stateIndex = 0;
 
+    public boolean isConfiguration() {
+        return states.size() > 1;
+    }
+
     public MenuOption(String description, List<MenuOptionState> states) {
         this.description = description;
         this.states.addAll(states);
@@ -37,7 +41,13 @@ public class MenuOption {
     }
 
     public String toString() {
-        MenuOptionState prompt = states.get(stateIndex);
-        return String.format("%s: %s", description, prompt.toString());
+        String prompt;
+        try {
+            prompt = states.get(stateIndex).toString();
+        } catch (IndexOutOfBoundsException e) {
+            prompt = "";
+        }
+
+        return String.format("%s: %s", description, prompt);
     }
 }
