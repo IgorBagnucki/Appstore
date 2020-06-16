@@ -46,19 +46,19 @@ public class Menu {
         return stringedMenu.toString();
     }
 
-    public void next() throws InvalidOperationException {
+    public void select() {
+        options.get(selectedOptionIndex).next();
+    }
+
+    public void next(){
         if(selectedOptionIndex < options.size()-1) {
-            selectedOptionIndex += 1;
-        } else {
-            throw new InvalidOperationException("Next menu option does not exists");
+        selectedOptionIndex += 1;
         }
     }
 
-    public void previous() throws InvalidOperationException {
+    public void previous() {
         if(selectedOptionIndex > 0) {
             selectedOptionIndex -= 1;
-        } else {
-            throw new InvalidOperationException("Previous menu option does not exists");
         }
     }
 
@@ -70,30 +70,24 @@ public class Menu {
         options.add(index, option);
     }
 
-    public void removeLast() throws InvalidOperationException {
+    public void removeLast() {
         if(options.size() >= 1) {
             options.remove(options.size()-1);
             adjustSelectedOption();
-        } else {
-            throw new InvalidOperationException("Cannot remove from empty list");
         }
     }
 
-    public void removeFirst() throws InvalidOperationException {
+    public void removeFirst() {
         if(options.size() >= 1) {
             options.remove(0);
             adjustSelectedOption();
-        } else {
-            throw new InvalidOperationException("Cannot remove from empty list");
         }
     }
 
-    public void remove(int index) throws IndexOutOfBoundsException {
+    public void remove(int index) {
         if(options.size() > index && index >= 0) {
             options.remove(index);
             adjustSelectedOption();
-        } else {
-            throw new IndexOutOfBoundsException("Index is too big or less than 0");
         }
     }
 
@@ -102,10 +96,8 @@ public class Menu {
         adjustSelectedOption();
     }
 
-    public void remove(String description) throws InvalidOperationException {
-        if(!options.removeIf(option -> option.description.equals(description))) {
-            throw new InvalidOperationException("Element was not found");
-        }
+    public void remove(String description) {
+        options.removeIf(option -> option.description.equals(description));
     }
 
     private void adjustSelectedOption() {
