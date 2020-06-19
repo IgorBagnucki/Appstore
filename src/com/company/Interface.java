@@ -6,7 +6,6 @@ import java.io.IOException;
 
 public class Interface {
     static Pair<MenuOption, Integer> displayMenu(Menu menu) {
-        Integer optionIndex = 0;
         boolean exit = false;
         while(!exit) {
             System.out.println("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n");
@@ -22,13 +21,11 @@ public class Interface {
                 int key = System.in.read();
                 if(key == 'j') {
                     menu.next();
-                    optionIndex++;
                 } else if(key == 'k') {
                     menu.previous();
-                    optionIndex--;
                 } else if(key == 'l') {
                     if(!menu.selectedOption().isConfiguration()) {
-                        return new Pair<>(menu.selectedOption(), optionIndex);
+                        return new Pair<>(menu.selectedOption(), menu.index());
                     }
                     menu.select();
                 } else if(key == 'h') {
@@ -38,6 +35,6 @@ public class Interface {
                 e.printStackTrace();
             }
         }
-        return new Pair<>(menu.selectedOption(), optionIndex);
+        return new Pair<>(menu.selectedOption(), menu.index());
     }
 }

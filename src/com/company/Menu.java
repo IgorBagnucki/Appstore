@@ -46,6 +46,10 @@ public class Menu {
         return stringedMenu.toString();
     }
 
+    public int index() {
+        return selectedOptionIndex;
+    }
+
     public MenuOption selectedOption() {
         return options.get(selectedOptionIndex);
     }
