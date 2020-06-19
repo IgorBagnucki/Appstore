@@ -7,6 +7,8 @@ abstract public class Worker extends Human {
         this.expectedRemuneration = expectedRemuneration;
     }
 
+    public abstract String details();
+
     public int getExpectedRemuneration() {
         return expectedRemuneration;
     }

@@ -30,13 +30,17 @@ public class Programmer extends Worker {
     }
 
     @Override
+    public String details() {
+        return seniorityLevel + "\n"
+             + "Remuneration: "  + getExpectedRemuneration() + "\n"
+             + "Work accuracy: " + getWorkAccuracy() + "\n"
+             + "Misses deadlines up to " + getMaximumDelay() + " days\n\n"
+             + knownTechnologies;
+    }
+
+    @Override
     public String toString() {
-        return  firstName + " " + lastName + "\n\n"
-                + seniorityLevel + "\n\n"
-                + "Remuneration: "  + getExpectedRemuneration() + "\n"
-                + "Work accuracy: " + getWorkAccuracy() + "\n"
-                + "Misses deadlines up to " + getMaximumDelay() + " days\n\n"
-                + knownTechnologies;
+        return  firstName + " " + lastName;
     }
 
     public TechnologiesWrapper<Integer> getKnownTechnologies() {

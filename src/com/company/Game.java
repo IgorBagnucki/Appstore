@@ -12,12 +12,12 @@ public class Game {
     private final List<Worker> availableColleagues = new ArrayList<>();
 
     private final Menu mainGameMenu = new Menu();
-    private final MenuOption employProgrammer = new MenuOption("Employ a programmer");
-    private final MenuOption employColleague = new MenuOption("Employ an colleague");
-    private final MenuOption employTester = new MenuOption("Employ a tester");
-    private final MenuOption employSeller = new MenuOption("Employ a seller");
-    private final MenuOption findProject = new MenuOption("Find new project");
-    private final MenuOption fireWorker = new MenuOption("Fire a worker");
+    private final MenuOption employProgrammer = new MenuOption("Employ a programmer", "");
+    private final MenuOption employColleague = new MenuOption("Employ an colleague", "");
+    private final MenuOption employTester = new MenuOption("Employ a tester", "");
+    private final MenuOption employSeller = new MenuOption("Employ a seller", "");
+    private final MenuOption findProject = new MenuOption("Find new project", "");
+    private final MenuOption fireWorker = new MenuOption("Fire a worker", "");
 
     public Game(List<Player> players) {
         this.players = players;
@@ -41,7 +41,7 @@ public class Game {
     private Worker workerMenu(List<Worker> list) {
         Menu menu = new Menu();
         for(Worker worker : list) {
-            menu.add(new MenuOption(worker.toString()));
+            menu.add(new MenuOption(worker.toString(), ""));
         }
         Integer workerIndex = Interface.displayMenu(menu).getValue();
         return list.get(workerIndex);
@@ -66,7 +66,7 @@ public class Game {
                 }
                 Menu employWorkerMenu = new Menu();
                 for(Worker worker : selectedList) {
-                    employWorkerMenu.add(new MenuOption(worker.toString()));
+                    employWorkerMenu.add(new MenuOption(worker.toString(), ""));
                 }
                 Integer workerIndex = Interface.displayMenu(employWorkerMenu).getValue();
                 Worker selectedWorker = selectedList.get(workerIndex);

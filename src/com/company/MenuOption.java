@@ -5,6 +5,7 @@ import java.util.List;
 
 public class MenuOption {
     public String description;
+    public String details;
     private ArrayList<MenuOptionState> states = new ArrayList<>();
     int stateIndex = 0;
 
@@ -12,12 +13,14 @@ public class MenuOption {
         return states.size() > 1;
     }
 
-    public MenuOption(String description, List<MenuOptionState> states) {
+    public MenuOption(String description, String details, List<MenuOptionState> states) {
+        this.details = details;
         this.description = description;
         this.states.addAll(states);
     }
 
-    public MenuOption(String description, String ...states) {
+    public MenuOption(String description, String details, String ...states) {
+        this.details = details;
         this.description = description;
         for(String state : states) {
             this.states.add(new MenuOptionState(state));
