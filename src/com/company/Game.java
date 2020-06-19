@@ -1,14 +1,19 @@
 package com.company;
 
+import javafx.util.Pair;
+
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
+import java.util.function.Function;
 
 public class Game {
     private static Game instance;
 
-    private Calendar date = Calendar.getInstance();
     private int turnIndex = 0;
+    private Date date;
+    private final List<Pair<Date, Function<Date, Boolean>>> registeredFunctions = new ArrayList<>();
 
     private List<Player> players;
     private final List<Project> availableProjects = new ArrayList<>();
@@ -26,8 +31,9 @@ public class Game {
     private final MenuOption fireWorker = new MenuOption("Fire a worker", "");
 
     private Game() {
-        date.set(2020, Calendar.JANUARY, 1);
-
+        Calendar calendar = Calendar.getInstance();
+        calendar.set(2020, Calendar.JANUARY, 1);
+        date = calendar.getTime();
         mainGameMenu.add(employProgrammer);
         mainGameMenu.add(employColleague);
         mainGameMenu.add(employTester);
@@ -79,6 +85,13 @@ public class Game {
         return projects.get(workerIndex);
     }
 
+    public void registerForTurn(Function<Date, Boolean> callback, int delay) {
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(date);
+        calendar.add(Calendar.DATE, delay);
+        registeredFunctions.add(new Pair<>(calendar.getTime(), callback));
+    }
+
     public void turn() {
         for(Player currentPlayer : players) {
             MenuOption selectedOption = Interface.displayMenu(mainGameMenu).getKey();
@@ -117,7 +130,11 @@ public class Game {
                 }
             }
         }
-        date.add(Calendar.DATE, 1);
+        turnIndex += 1;
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(date);
+        calendar.add(Calendar.DATE, 1);
+        date = calendar.getTime();
     }
 
     public void play() {
