@@ -31,15 +31,25 @@ public class Interface {
                       + "change selected: L <Enter>\n"
                 );
             }
-            try {
-                char key = toUpperCase((char)System.in.read());
+            boolean correctKeyEntered = false;
+            while(!correctKeyEntered) {
+                char key = '\0';
+                try {
+                    key = toUpperCase((char)System.in.read());
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
                 if(key == 'H') {
+                    correctKeyEntered = true;
                     exit = true;
                 } else if(key == 'J') {
+                    correctKeyEntered = true;
                     menu.next();
                 } else if(key == 'K') {
+                    correctKeyEntered = true;
                     menu.previous();
                 } else if(key == 'L') {
+                    correctKeyEntered = true;
                     if(menu.selectedOption().isConfiguration()) {
                         exit = true;
                     }
@@ -47,8 +57,6 @@ public class Interface {
                         menu.select();
                     }
                 }
-            } catch (IOException e) {
-                e.printStackTrace();
             }
         }
         return new Pair<>(menu.selectedOption(), menu.index());
