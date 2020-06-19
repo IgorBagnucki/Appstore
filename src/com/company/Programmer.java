@@ -1,7 +1,5 @@
 package com.company;
 
-import java.util.Random;
-
 public class Programmer extends Worker {
     public enum SeniorityLevel{
         STUDENT,
@@ -36,11 +34,6 @@ public class Programmer extends Worker {
              + "Work accuracy: " + getWorkAccuracy() + "\n"
              + "Misses deadlines up to " + getMaximumDelay() + " days\n\n"
              + knownTechnologies;
-    }
-
-    @Override
-    public String toString() {
-        return  firstName + " " + lastName;
     }
 
     public TechnologiesWrapper<Integer> getKnownTechnologies() {

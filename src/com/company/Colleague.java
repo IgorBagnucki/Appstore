@@ -44,9 +44,4 @@ public class Colleague extends Programmer {
                 + knownTechnologies + "\n\n"
                 + value;
     }
-
-    @Override
-    public String toString() {
-        return firstName + " " + lastName;
-    }
 }

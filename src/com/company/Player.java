@@ -1,6 +1,5 @@
 package com.company;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -30,10 +29,5 @@ public class Player extends Programmer {
 
     public void employWorker(Worker worker) {
 
-    }
-
-    @Override
-    public String toString() {
-        return firstName + " " + lastName + "\n\nIt's you!";
     }
 }
