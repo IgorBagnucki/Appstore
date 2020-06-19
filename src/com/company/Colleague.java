@@ -28,15 +28,25 @@ public class Colleague extends Programmer {
     }
 
     @Override
-    public String toString() {
-        String value = firstName + " " + lastName + "\n\n";
+    public String details() {
+        String value;
         if(type == Type.BEST) {
-            value += "He is the most expensive, but makes no mistakes and doesn't miss deadlines";
+            value = "He is the most expensive, but makes no mistakes and doesn't miss deadlines";
         } else if(type == Type.MID) {
-            value += "He doesn't miss deadlines, but he has 10% chance to make errors";
+            value = "He doesn't miss deadlines, but has 10% chance to make errors";
         } else {
-            value += "Cheapest, 20% chance he'll be late and 20% chance he'll make errors";
+            value = "Cheapest, 20% chance he'll be late and 20% chance he'll make errors";
         }
-        return value;
+        return seniorityLevel + "\n"
+                + "Remuneration: "  + getExpectedRemuneration() + "\n"
+                + "Work accuracy: " + getWorkAccuracy() + "\n"
+                + "Misses deadlines up to " + getMaximumDelay() + " days\n\n"
+                + knownTechnologies + "\n\n"
+                + value;
+    }
+
+    @Override
+    public String toString() {
+        return firstName + " " + lastName;
     }
 }

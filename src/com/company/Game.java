@@ -28,6 +28,9 @@ public class Game {
         mainGameMenu.add(findProject);
         mainGameMenu.add(fireWorker);
 
+        availableColleagues.add(ColleagueFactory.get(Colleague.Type.BEST));
+        availableColleagues.add(ColleagueFactory.get(Colleague.Type.MID));
+        availableColleagues.add(ColleagueFactory.get(Colleague.Type.COCKY));
         for(int i = 0; i < 6; ++i) {
             availableProgrammers.add(ProgrammerGenerator.generate());
             availableTesters.add(TesterGenerator.generate());

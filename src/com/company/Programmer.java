@@ -9,10 +9,10 @@ public class Programmer extends Worker {
         MID,
         SENIOR
     }
-    private TechnologiesWrapper<Integer> knownTechnologies;
+    protected TechnologiesWrapper<Integer> knownTechnologies;
     private double workAccuracy;
     private int maximumDelay;
-    private SeniorityLevel seniorityLevel;
+    protected SeniorityLevel seniorityLevel;
 
     public Programmer(
             SeniorityLevel seniorityLevel,
