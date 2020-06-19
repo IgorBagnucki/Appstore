@@ -4,11 +4,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Game {
-    private final List<Player> players = new ArrayList<>();
+    private List<Player> players;
     private final List<Project> availableProjects = new ArrayList<>();
-    private final List<Programmer> availableProgrammers = new ArrayList<>();
-    private final List<Tester> availableTesters = new ArrayList<>();
-    private final List<Seller> availableSellers = new ArrayList<>();
+    private final List<Worker> availableProgrammers = new ArrayList<>();
+    private final List<Worker> availableTesters = new ArrayList<>();
+    private final List<Worker> availableSellers = new ArrayList<>();
+    private final List<Worker> availableColleagues = new ArrayList<>();
 
     private final Menu mainGameMenu = new Menu();
     private final MenuOption employProgrammer = new MenuOption("Employ a programmer");
@@ -18,7 +19,8 @@ public class Game {
     private final MenuOption findProject = new MenuOption("Find new project");
     private final MenuOption fireWorker = new MenuOption("Fire a worker");
 
-    public Game() {
+    public Game(List<Player> players) {
+        this.players = players;
         mainGameMenu.add(employProgrammer);
         mainGameMenu.add(employColleague);
         mainGameMenu.add(employTester);
@@ -32,21 +34,54 @@ public class Game {
         }
     }
 
-    public boolean turn() {
-        MenuOption selectedOption = Interface.displayMenu(mainGameMenu);
-        if(selectedOption == employProgrammer) {
-            System.out.println(0);
-        } else if(selectedOption == employColleague) {
-            System.out.println(1);
-        } else if(selectedOption == employTester) {
-            System.out.println(2);
-        } else if(selectedOption == employSeller) {
-            System.out.println(3);
-        } else if(selectedOption == findProject) {
-            System.out.println(4);
-        } else if(selectedOption == fireWorker) {
-            System.out.println(5);
+    public boolean isGameFinished() {
+        return false;
+    }
+
+    private Worker workerMenu(List<Worker> list) {
+        Menu menu = new Menu();
+        for(Worker worker : list) {
+            menu.add(new MenuOption(worker.toString()));
         }
-        return true;
+        Integer workerIndex = Interface.displayMenu(menu).getValue();
+        return list.get(workerIndex);
+    }
+
+    public void turn() {
+        for(Player currentPlayer : players) {
+            MenuOption selectedOption = Interface.displayMenu(mainGameMenu).getKey();
+            if(selectedOption == employProgrammer
+            || selectedOption == employColleague
+            || selectedOption == employTester
+            || selectedOption == employSeller) {
+                List<Worker> selectedList;
+                if(selectedOption == employProgrammer) {
+                    selectedList = availableProgrammers;
+                } else if(selectedOption == employColleague) {
+                    selectedList = availableColleagues;
+                } else if(selectedOption == employTester) {
+                    selectedList = availableTesters;
+                } else {
+                    selectedList = availableSellers;
+                }
+                Menu employWorkerMenu = new Menu();
+                for(Worker worker : selectedList) {
+                    employWorkerMenu.add(new MenuOption(worker.toString()));
+                }
+                Integer workerIndex = Interface.displayMenu(employWorkerMenu).getValue();
+                Worker selectedWorker = selectedList.get(workerIndex);
+                currentPlayer.employWorker(selectedWorker);
+            } else if(selectedOption == findProject) {
+                System.out.println(4);
+            } else if(selectedOption == fireWorker) {
+                System.out.println(5);
+            }
+        }
+    }
+
+    public void play() {
+        while(!isGameFinished()) {
+            turn();
+        }
     }
 }

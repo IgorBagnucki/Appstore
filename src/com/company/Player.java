@@ -1,7 +1,12 @@
 package com.company;
 
+import java.lang.reflect.Array;
+import java.util.ArrayList;
+import java.util.List;
+
 public class Player extends Programmer {
     private int cash;
+    private List<Worker> employedWorkers = new ArrayList<>();
 
     public Player(
         SeniorityLevel seniorityLevel,
@@ -21,6 +26,10 @@ public class Player extends Programmer {
             maximumDelay,
             knownTechnologies);
         this.cash = cash;
+    }
+
+    public void employWorker(Worker worker) {
+
     }
 
     @Override
