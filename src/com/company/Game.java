@@ -27,6 +27,7 @@ public class Game {
         mainGameMenu.add(employSeller);
         mainGameMenu.add(findProject);
         mainGameMenu.add(fireWorker);
+
         for(int i = 0; i < 6; ++i) {
             availableProgrammers.add(ProgrammerGenerator.generate());
             availableTesters.add(TesterGenerator.generate());
