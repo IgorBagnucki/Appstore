@@ -15,9 +15,10 @@ public class Main {
                         10000,
                         .99,
                         0,
-                        new TechnologiesWrapper<Integer>(100),
+                        new TechnologiesWrapper<>(100),
                         15000));
-        Game game = new Game(players);
+        Game game = Game.getInstance();
+        game.setPlayers(players);
         game.play();
     }
 }

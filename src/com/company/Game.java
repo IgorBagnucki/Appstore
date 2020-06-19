@@ -5,6 +5,8 @@ import java.util.Calendar;
 import java.util.List;
 
 public class Game {
+    private static Game instance;
+
     private Calendar date = Calendar.getInstance();
     private int turnIndex = 0;
 
@@ -23,10 +25,9 @@ public class Game {
     private final MenuOption findProject = new MenuOption("Find new project", "");
     private final MenuOption fireWorker = new MenuOption("Fire a worker", "");
 
-    public Game(List<Player> players) {
+    private Game() {
         date.set(2020, Calendar.JANUARY, 1);
 
-        this.players = players;
         mainGameMenu.add(employProgrammer);
         mainGameMenu.add(employColleague);
         mainGameMenu.add(employTester);
@@ -43,6 +44,17 @@ public class Game {
             availableSellers.add(SellerGenerator.generate());
             availableProjects.add(ProjectGenerator.generate(ClientGenerator.generate()));
         }
+    }
+
+    public static Game getInstance() {
+        if(instance == null) {
+            instance = new Game();
+        }
+        return instance;
+    }
+
+    public void setPlayers(List<Player> players) {
+        this.players = players;
     }
 
     public boolean isGameFinished() {
@@ -109,6 +121,9 @@ public class Game {
     }
 
     public void play() {
+        if(players.size() <= 0) {
+            return;
+        }
         while(!isGameFinished()) {
             turn();
         }
