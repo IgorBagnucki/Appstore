@@ -1,9 +1,13 @@
 package com.company;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
 public class Game {
+    private Calendar date = Calendar.getInstance();
+    private int turnIndex = 0;
+
     private List<Player> players;
     private final List<Project> availableProjects = new ArrayList<>();
     private final List<Worker> availableProgrammers = new ArrayList<>();
@@ -20,6 +24,8 @@ public class Game {
     private final MenuOption fireWorker = new MenuOption("Fire a worker", "");
 
     public Game(List<Player> players) {
+        date.set(2020, Calendar.JANUARY, 1);
+
         this.players = players;
         mainGameMenu.add(employProgrammer);
         mainGameMenu.add(employColleague);
@@ -99,6 +105,7 @@ public class Game {
                 }
             }
         }
+        date.add(Calendar.DATE, 1);
     }
 
     public void play() {
