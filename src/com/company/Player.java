@@ -29,10 +29,18 @@ public class Player extends Programmer {
     }
 
     public void employWorker(Worker worker) {
-        employedWorkers.add(worker);
+        getEmployedWorkers().add(worker);
     }
 
     public void startProject(Project project) {
         projects.add(project);
+    }
+
+    public List<Worker> getEmployedWorkers() {
+        return employedWorkers;
+    }
+
+    public void fireWorker(Worker workerToFire) {
+        employedWorkers.remove(workerToFire);
     }
 }

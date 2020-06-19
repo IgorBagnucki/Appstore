@@ -43,7 +43,7 @@ public class Game {
         return false;
     }
 
-    private Worker showEmployWorkerMenu(List<Worker> list) {
+    private Worker showWorkerMenu(List<Worker> list) {
         Menu menu = new Menu();
         for(Worker worker : list) {
             menu.add(new MenuOption(worker.toString(), worker.details()));
@@ -78,16 +78,25 @@ public class Game {
                 } else {
                     selectedList = availableSellers;
                 }
-                Worker selectedWorker = showEmployWorkerMenu(selectedList);
+                Worker selectedWorker = showWorkerMenu(selectedList);
                 selectedList.remove(selectedWorker);
                 currentPlayer.employWorker(selectedWorker);
             } else if(selectedOption == findProject) {
                 Project selectedProject = showFindProjectMenu(availableProjects);
                 availableProjects.remove(selectedProject);
                 currentPlayer.startProject(selectedProject);
-
             } else if(selectedOption == fireWorker) {
-                System.out.println(5);
+                Worker firedWorker = showWorkerMenu(currentPlayer.getEmployedWorkers());
+                currentPlayer.fireWorker(firedWorker);
+                if(firedWorker instanceof Colleague) {
+                    availableColleagues.add(firedWorker);
+                } else if(firedWorker instanceof Programmer) {
+                    availableProgrammers.add(firedWorker);
+                } else if(firedWorker instanceof Tester) {
+                    availableTesters.add(firedWorker);
+                } else if(firedWorker instanceof Seller) {
+                    availableSellers.add(firedWorker);
+                }
             }
         }
     }
