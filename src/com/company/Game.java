@@ -41,7 +41,7 @@ public class Game {
     private Worker workerMenu(List<Worker> list) {
         Menu menu = new Menu();
         for(Worker worker : list) {
-            menu.add(new MenuOption(worker.toString(), ""));
+            menu.add(new MenuOption(worker.toString(), worker.details()));
         }
         Integer workerIndex = Interface.displayMenu(menu).getValue();
         return list.get(workerIndex);
@@ -64,12 +64,7 @@ public class Game {
                 } else {
                     selectedList = availableSellers;
                 }
-                Menu employWorkerMenu = new Menu();
-                for(Worker worker : selectedList) {
-                    employWorkerMenu.add(new MenuOption(worker.toString(), ""));
-                }
-                Integer workerIndex = Interface.displayMenu(employWorkerMenu).getValue();
-                Worker selectedWorker = selectedList.get(workerIndex);
+                Worker selectedWorker = workerMenu(selectedList);
                 currentPlayer.employWorker(selectedWorker);
             } else if(selectedOption == findProject) {
                 System.out.println(4);

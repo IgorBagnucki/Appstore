@@ -10,7 +10,7 @@ public class MenuOption {
     int stateIndex = 0;
 
     public boolean isConfiguration() {
-        return states.size() > 1;
+        return states.size() <= 1;
     }
 
     public MenuOption(String description, String details, List<MenuOptionState> states) {
