@@ -28,6 +28,6 @@ public class Player extends Programmer {
     }
 
     public void employWorker(Worker worker) {
-
+        employedWorkers.add(worker);
     }
 }

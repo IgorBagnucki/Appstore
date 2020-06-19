@@ -69,6 +69,7 @@ public class Game {
                     selectedList = availableSellers;
                 }
                 Worker selectedWorker = workerMenu(selectedList);
+                selectedList.remove(selectedWorker);
                 currentPlayer.employWorker(selectedWorker);
             } else if(selectedOption == findProject) {
                 System.out.println(4);
