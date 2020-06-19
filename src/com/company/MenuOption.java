@@ -48,9 +48,8 @@ public class MenuOption {
         try {
             prompt = states.get(stateIndex).toString();
         } catch (IndexOutOfBoundsException e) {
-            prompt = "";
+            return String.format("%s", description);
         }
-
         return String.format("%s: %s", description, prompt);
     }
 }
