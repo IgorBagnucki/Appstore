@@ -35,6 +35,7 @@ public class Game {
             availableProgrammers.add(ProgrammerGenerator.generate());
             availableTesters.add(TesterGenerator.generate());
             availableSellers.add(SellerGenerator.generate());
+            availableProjects.add(ProjectGenerator.generate(ClientGenerator.generate()));
         }
     }
 
@@ -42,13 +43,22 @@ public class Game {
         return false;
     }
 
-    private Worker workerMenu(List<Worker> list) {
+    private Worker showEmployWorkerMenu(List<Worker> list) {
         Menu menu = new Menu();
         for(Worker worker : list) {
             menu.add(new MenuOption(worker.toString(), worker.details()));
         }
-        Integer workerIndex = Interface.displayMenu(menu).getValue();
+        int workerIndex = Interface.displayMenu(menu).getValue();
         return list.get(workerIndex);
+    }
+
+    private Project showFindProjectMenu(List<Project> projects) {
+        Menu menu = new Menu();
+        for(Project project : projects) {
+            menu.add(new MenuOption(project.toString(), project.details()));
+        }
+        int workerIndex = Interface.displayMenu(menu).getValue();
+        return projects.get(workerIndex);
     }
 
     public void turn() {
@@ -68,11 +78,14 @@ public class Game {
                 } else {
                     selectedList = availableSellers;
                 }
-                Worker selectedWorker = workerMenu(selectedList);
+                Worker selectedWorker = showEmployWorkerMenu(selectedList);
                 selectedList.remove(selectedWorker);
                 currentPlayer.employWorker(selectedWorker);
             } else if(selectedOption == findProject) {
-                System.out.println(4);
+                Project selectedProject = showFindProjectMenu(availableProjects);
+                availableProjects.remove(selectedProject);
+                currentPlayer.startProject(selectedProject);
+
             } else if(selectedOption == fireWorker) {
                 System.out.println(5);
             }

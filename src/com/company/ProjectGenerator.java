@@ -5,7 +5,7 @@ import java.util.Collections;
 import java.util.Random;
 
 public class ProjectGenerator {
-    public static Project generate(Human client, int daysToWaitBeforePayment) {
+    public static Project generate(Human client) {
         // Project(String name, Human client, Date deadline, Price feeForMissingDeadline, Price price, int daysToWaitBeforePayment, TechnologiesWrapper<Integer> technologyWorkDays)
         Random random = new Random();
         TechnologiesWrapper<Integer> technologyWorkDays = generateTechnologyWorkDays();
@@ -15,7 +15,6 @@ public class ProjectGenerator {
                 new Deadline(technologyWorkDays.addValues()),
                 new Price(random.nextInt(960)+40),
                 new Price(technologyWorkDays.addValues() * (random.nextInt(500)+20)),
-                daysToWaitBeforePayment,
                 technologyWorkDays
                 );
     }

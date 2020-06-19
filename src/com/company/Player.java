@@ -6,6 +6,7 @@ import java.util.List;
 public class Player extends Programmer {
     private int cash;
     private List<Worker> employedWorkers = new ArrayList<>();
+    private List<Project> projects = new ArrayList<>();
 
     public Player(
         SeniorityLevel seniorityLevel,
@@ -29,5 +30,9 @@ public class Player extends Programmer {
 
     public void employWorker(Worker worker) {
         employedWorkers.add(worker);
+    }
+
+    public void startProject(Project project) {
+        projects.add(project);
     }
 }
