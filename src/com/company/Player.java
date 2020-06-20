@@ -28,6 +28,10 @@ public class Player extends Programmer {
         this.cash = cash;
     }
 
+    public List<Project> getProjects() {
+        return projects;
+    }
+
     public void employWorker(Worker worker) {
         getEmployedWorkers().add(worker);
     }
@@ -35,6 +39,10 @@ public class Player extends Programmer {
     public void startProject(Project project) {
         projects.add(project);
     }
+
+    public void testCode(Project project) { }
+
+    public void settleWithAuthorities() { }
 
     public List<Worker> getEmployedWorkers() {
         return employedWorkers;

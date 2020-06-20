@@ -94,11 +94,11 @@ public class TechnologiesWrapper<T> {
 
     @Override
     public String toString() {
-        return    "Frontend:   " + frontend   + "%\n"
-                + "Backend:    " + backend    + "%\n"
-                + "Database:   " + database   + "%\n"
-                + "Mobile:     " + mobile     + "%\n"
-                + "Wordpress:  " + wordpress  + "%\n"
-                + "Prestashop: " + prestashop + "%\n";
+        return    "Frontend:   " + frontend   + "\n"
+                + "Backend:    " + backend    + "\n"
+                + "Database:   " + database   + "\n"
+                + "Mobile:     " + mobile     + "\n"
+                + "Wordpress:  " + wordpress  + "\n"
+                + "Prestashop: " + prestashop + "\n";
     }
 }

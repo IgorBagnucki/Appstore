@@ -43,6 +43,7 @@ public class MenuOption {
         }
     }
 
+    @Override
     public String toString() {
         String prompt;
         try {

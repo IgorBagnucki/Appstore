@@ -29,6 +29,8 @@ public class Game {
     private final MenuOption employSeller = new MenuOption("Employ a seller", "");
     private final MenuOption findProject = new MenuOption("Find new project", "");
     private final MenuOption fireWorker = new MenuOption("Fire a worker", "");
+    private final MenuOption testCode = new MenuOption("Test your project", "");
+    private final MenuOption settleWithAuthorities = new MenuOption("Settle with authorities", "");
 
     private Game() {
         Calendar calendar = Calendar.getInstance();
@@ -40,6 +42,8 @@ public class Game {
         mainGameMenu.add(employSeller);
         mainGameMenu.add(findProject);
         mainGameMenu.add(fireWorker);
+        mainGameMenu.add(testCode);
+        mainGameMenu.add(settleWithAuthorities);
 
         availableColleagues.add(ColleagueFactory.get(Colleague.Type.BEST));
         availableColleagues.add(ColleagueFactory.get(Colleague.Type.MID));
@@ -72,17 +76,17 @@ public class Game {
         for(Worker worker : list) {
             menu.add(new MenuOption(worker.toString(), worker.details()));
         }
-        int workerIndex = Interface.displayMenu(menu).getValue();
+        int workerIndex = Interface.getInstance().displayMenu(menu).getValue();
         return list.get(workerIndex);
     }
 
-    private Project showFindProjectMenu(List<Project> projects) {
+    private Project showProjectMenu(List<Project> projects) {
         Menu menu = new Menu();
         for(Project project : projects) {
             menu.add(new MenuOption(project.toString(), project.details()));
         }
-        int workerIndex = Interface.displayMenu(menu).getValue();
-        return projects.get(workerIndex);
+        int projectIndex = Interface.getInstance().displayMenu(menu).getValue();
+        return projects.get(projectIndex);
     }
 
     public void registerForTurn(Function<Date, Boolean> callback, int delay) {
@@ -94,41 +98,7 @@ public class Game {
 
     public void turn() {
         for(Player currentPlayer : players) {
-            MenuOption selectedOption = Interface.displayMenu(mainGameMenu).getKey();
-            if(selectedOption == employProgrammer
-            || selectedOption == employColleague
-            || selectedOption == employTester
-            || selectedOption == employSeller) {
-                List<Worker> selectedList;
-                if(selectedOption == employProgrammer) {
-                    selectedList = availableProgrammers;
-                } else if(selectedOption == employColleague) {
-                    selectedList = availableColleagues;
-                } else if(selectedOption == employTester) {
-                    selectedList = availableTesters;
-                } else {
-                    selectedList = availableSellers;
-                }
-                Worker selectedWorker = showWorkerMenu(selectedList);
-                selectedList.remove(selectedWorker);
-                currentPlayer.employWorker(selectedWorker);
-            } else if(selectedOption == findProject) {
-                Project selectedProject = showFindProjectMenu(availableProjects);
-                availableProjects.remove(selectedProject);
-                currentPlayer.startProject(selectedProject);
-            } else if(selectedOption == fireWorker) {
-                Worker firedWorker = showWorkerMenu(currentPlayer.getEmployedWorkers());
-                currentPlayer.fireWorker(firedWorker);
-                if(firedWorker instanceof Colleague) {
-                    availableColleagues.add(firedWorker);
-                } else if(firedWorker instanceof Programmer) {
-                    availableProgrammers.add(firedWorker);
-                } else if(firedWorker instanceof Tester) {
-                    availableTesters.add(firedWorker);
-                } else if(firedWorker instanceof Seller) {
-                    availableSellers.add(firedWorker);
-                }
-            }
+            playerTurn(currentPlayer);
         }
         turnIndex += 1;
         Calendar calendar = Calendar.getInstance();
@@ -143,6 +113,53 @@ public class Game {
         }
         while(!isGameFinished()) {
             turn();
+        }
+    }
+
+    private void playerTurn(Player player) {
+        playerActions(player);
+    }
+
+    private void playerActions(Player player) {
+        MenuOption selectedOption = Interface.getInstance().displayMenu(mainGameMenu).getKey();
+        if(selectedOption == employProgrammer
+                || selectedOption == employColleague
+                || selectedOption == employTester
+                || selectedOption == employSeller) {
+            List<Worker> selectedList;
+            if(selectedOption == employProgrammer) {
+                selectedList = availableProgrammers;
+            } else if(selectedOption == employColleague) {
+                selectedList = availableColleagues;
+            } else if(selectedOption == employTester) {
+                selectedList = availableTesters;
+            } else {
+                selectedList = availableSellers;
+            }
+            Worker selectedWorker = showWorkerMenu(selectedList);
+            selectedList.remove(selectedWorker);
+            player.employWorker(selectedWorker);
+        } else if(selectedOption == findProject) {
+            Project selectedProject = showProjectMenu(availableProjects);
+            availableProjects.remove(selectedProject);
+            player.startProject(selectedProject);
+        } else if(selectedOption == fireWorker) {
+            Worker firedWorker = showWorkerMenu(player.getEmployedWorkers());
+            player.fireWorker(firedWorker);
+            if(firedWorker instanceof Colleague) {
+                availableColleagues.add(firedWorker);
+            } else if(firedWorker instanceof Programmer) {
+                availableProgrammers.add(firedWorker);
+            } else if(firedWorker instanceof Tester) {
+                availableTesters.add(firedWorker);
+            } else if(firedWorker instanceof Seller) {
+                availableSellers.add(firedWorker);
+            }
+        } else if(selectedOption == testCode) {
+            Project selectedProject = showProjectMenu(player.getProjects());
+            player.testCode(selectedProject);
+        } else if(selectedOption == settleWithAuthorities) {
+            player.settleWithAuthorities();
         }
     }
 }

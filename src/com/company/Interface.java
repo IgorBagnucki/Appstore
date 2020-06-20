@@ -7,7 +7,17 @@ import java.io.IOException;
 import static java.lang.Character.toUpperCase;
 
 public class Interface {
-    static Pair<MenuOption, Integer> displayMenu(Menu menu) {
+
+    private static Interface instance;
+
+    public static Interface getInstance() {
+        if(instance == null) {
+            instance = new Interface();
+        }
+        return instance;
+    }
+
+    public Pair<MenuOption, Integer> displayMenu(Menu menu) {
         boolean exit = false;
         while(!exit) {
             System.out.println("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n");
@@ -18,18 +28,16 @@ public class Interface {
             if(menu.selectedOption().isConfiguration()) {
                 System.out.println(
                         "\n\n"
+                      + "confirm choice:  H <Enter>\n"
                       + "next option:     J <Enter>\n"
-                      + "previous option: K <Enter>\n"
-                      + "confirm choice:  L <Enter>\n"
-                );
+                      + "previous option: K <Enter>\n");
             } else {
                 System.out.println(
                         "\n\n"
                       + "confirm choice:  H <Enter>\n"
                       + "next option:     J <Enter>\n"
                       + "previous option: K <Enter>\n"
-                      + "change selected: L <Enter>\n"
-                );
+                      + "change selected: L <Enter>\n");
             }
             boolean correctKeyEntered = false;
             while(!correctKeyEntered) {
