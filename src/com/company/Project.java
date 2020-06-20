@@ -34,6 +34,7 @@ public class Project {
              + "time: " + timeBeforeDeadline + "\n"
              + "fee for delay: " + feeForMissingDeadline + "\n"
              + "payment: " + price + "\n\n"
+             + "Working days required for technology:"
              + technologyWorkDays;
     }
 

@@ -13,7 +13,7 @@ public class Game {
 
     private int turnIndex = 0;
     private Date date;
-    private final List<Pair<Date, Function<Date, Boolean>>> registeredFunctions = new ArrayList<>();
+    private final List<Pair<Date, Function<Date, Boolean>>> registeredCallbacks = new ArrayList<>();
 
     private List<Player> players;
     private final List<Project> availableProjects = new ArrayList<>();
@@ -71,6 +71,43 @@ public class Game {
         return false;
     }
 
+    public void registerCallbackForTurn(Function<Date, Boolean> callback, int delay) {
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(date);
+        calendar.add(Calendar.DATE, delay);
+        registeredCallbacks.add(new Pair<>(calendar.getTime(), callback));
+    }
+
+    private void callCallbacks() {
+        for(Pair<Date, Function<Date, Boolean>> callback : registeredCallbacks) {
+            if(callback.getKey().compareTo(date) == 0) {
+                callback.getValue().apply(date);
+                registeredCallbacks.remove(callback);
+            }
+        }
+    }
+
+    public void turn() {
+        for(Player currentPlayer : players) {
+            playerTurn(currentPlayer);
+        }
+        callCallbacks();
+        turnIndex += 1;
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(date);
+        calendar.add(Calendar.DATE, 1);
+        date = calendar.getTime();
+    }
+
+    public void play() {
+        if(players.size() <= 0) {
+            return;
+        }
+        while(!isGameFinished()) {
+            turn();
+        }
+    }
+
     private Worker showWorkerMenu(List<Worker> list) {
         Menu menu = new Menu();
         for(Worker worker : list) {
@@ -87,33 +124,6 @@ public class Game {
         }
         int projectIndex = Interface.getInstance().displayMenu(menu).getValue();
         return projects.get(projectIndex);
-    }
-
-    public void registerForTurn(Function<Date, Boolean> callback, int delay) {
-        Calendar calendar = Calendar.getInstance();
-        calendar.setTime(date);
-        calendar.add(Calendar.DATE, delay);
-        registeredFunctions.add(new Pair<>(calendar.getTime(), callback));
-    }
-
-    public void turn() {
-        for(Player currentPlayer : players) {
-            playerTurn(currentPlayer);
-        }
-        turnIndex += 1;
-        Calendar calendar = Calendar.getInstance();
-        calendar.setTime(date);
-        calendar.add(Calendar.DATE, 1);
-        date = calendar.getTime();
-    }
-
-    public void play() {
-        if(players.size() <= 0) {
-            return;
-        }
-        while(!isGameFinished()) {
-            turn();
-        }
     }
 
     private void playerTurn(Player player) {
