@@ -63,6 +63,10 @@ public class Game {
         return instance;
     }
 
+    public void addAvailableProject(Project project) {
+        availableProjects.add(project);
+    }
+
     public void setPlayers(List<Player> players) {
         this.players = players;
     }
@@ -106,6 +110,10 @@ public class Game {
         while(!isGameFinished()) {
             turn();
         }
+    }
+
+    public Date getCurrentDate() {
+        return date;
     }
 
     private Worker showWorkerMenu(List<Worker> list) {

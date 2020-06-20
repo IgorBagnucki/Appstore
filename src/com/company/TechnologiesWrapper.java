@@ -56,6 +56,27 @@ public class TechnologiesWrapper<T> {
         return this;
     }
 
+    public int size() {
+        return 6;
+    }
+
+    public T getAtIndex(int index) {
+        switch (index) {
+            case 0:
+                return frontend;
+            case 1:
+                return backend;
+            case 2:
+                return database;
+            case 3:
+                return mobile;
+            case 4:
+                return wordpress;
+            default:
+                return prestashop;
+        }
+    }
+
     public void setAtIndex(int index, T value) {
         switch (index) {
             case 0:

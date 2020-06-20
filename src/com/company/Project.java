@@ -10,8 +10,9 @@ public class Project {
         MEDIUM,
         COMPLICATED
     }
+    public TechnologiesWrapper<Integer> technologyWorkDays;
+    public boolean hasErrors = false;
     private String name;
-    private TechnologiesWrapper<Integer> technologyWorkDays;
     private Client client;
     private Deadline timeBeforeDeadline;
     private Money feeForMissingDeadline;
