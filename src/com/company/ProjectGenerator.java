@@ -5,16 +5,17 @@ import java.util.Collections;
 import java.util.Random;
 
 public class ProjectGenerator {
-    public static Project generate(Human client) {
+    public static Project generate(Client client) {
         Random random = new Random();
         TechnologiesWrapper<Integer> technologyWorkDays = generateTechnologyWorkDays();
         return new Project(
                 generateProjectName(),
                 client,
                 new Deadline(technologyWorkDays.addValues()),
-                new Price(random.nextInt(960)+40),
-                new Price(technologyWorkDays.addValues() * (random.nextInt(500)+20)),
-                technologyWorkDays);
+                new Money(random.nextInt(960)+40),
+                new Money(technologyWorkDays.addValues() * (random.nextInt(500)+20)),
+                technologyWorkDays,
+                random.nextInt(5)+1);
     }
 
     private static TechnologiesWrapper<Integer> generateTechnologyWorkDays() {

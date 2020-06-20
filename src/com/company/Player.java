@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Player extends Programmer {
-    private int cash;
+    private Money cash;
     private List<Worker> employedWorkers = new ArrayList<>();
     private List<Project> projects = new ArrayList<>();
 
@@ -16,7 +16,7 @@ public class Player extends Programmer {
         double workAccuracy,
         int maximumDelay,
         TechnologiesWrapper<Integer> knownTechnologies,
-        int cash) {
+        Money cash) {
         super(
             seniorityLevel,
             firstName,
@@ -50,5 +50,9 @@ public class Player extends Programmer {
 
     public void fireWorker(Worker workerToFire) {
         employedWorkers.remove(workerToFire);
+    }
+
+    public void getPayment(Money amount) {
+        cash.add(amount);
     }
 }

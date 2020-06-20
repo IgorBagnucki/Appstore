@@ -1,5 +1,8 @@
 package com.company;
 
+import java.util.Date;
+import java.util.function.Function;
+
 public class Project {
 
     public enum ComplexityLevel {
@@ -9,19 +12,23 @@ public class Project {
     }
     private String name;
     private TechnologiesWrapper<Integer> technologyWorkDays;
-    private Human client;
+    private Client client;
     private Deadline timeBeforeDeadline;
-    private Price feeForMissingDeadline;
-    private Price price;
+    private Money feeForMissingDeadline;
+    private Money price;
     private ComplexityLevel complexity;
+    private int numberOfStages;
+    private int stagesCompleted = 0;
+    private Money moneyPayed = new Money(0);
 
-    public Project(String name, Human client, Deadline timeBeforeDeadline, Price feeForMissingDeadline, Price price, TechnologiesWrapper<Integer> technologyWorkDays) {
+    public Project(String name, Client client, Deadline timeBeforeDeadline, Money feeForMissingDeadline, Money price, TechnologiesWrapper<Integer> technologyWorkDays, int numberOfStages) {
         this.name = name;
         this.client = client;
         this.timeBeforeDeadline = timeBeforeDeadline;
         this.feeForMissingDeadline = feeForMissingDeadline;
         this.price = price;
         this.technologyWorkDays = technologyWorkDays;
+        this.numberOfStages = numberOfStages;
         int requiredTechnologies = technologyWorkDays.countNonZero();
         complexity =
                 requiredTechnologies==1 ? ComplexityLevel.EASY :
@@ -36,6 +43,28 @@ public class Project {
              + "payment: " + price + "\n\n"
              + "Working days required for technology:"
              + technologyWorkDays;
+    }
+
+    private void registerPayment(Money amount, Player player) {
+        int delay = client.getPaymentDelay();
+        if(delay < 0) {
+            return;
+        }
+        Function<Date, Boolean> callback = Date -> client.payForProject(amount, player);
+        Game.getInstance().registerCallback(callback, client.getPaymentDelay());
+    }
+
+    public void submitStage(Player submitter) {
+        ++stagesCompleted;
+        Money toPay;
+        if(stagesCompleted == numberOfStages) {
+            // this helps with rounding errors
+            toPay = new Money(price.get() - moneyPayed.get());
+        } else {
+            toPay = new Money(price.get() / numberOfStages);
+        }
+        registerPayment(toPay, submitter);
+        moneyPayed.add(toPay);
     }
 
     @Override

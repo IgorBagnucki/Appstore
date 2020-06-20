@@ -71,7 +71,7 @@ public class Game {
         return false;
     }
 
-    public void registerCallbackForTurn(Function<Date, Boolean> callback, int delay) {
+    public void registerCallback(Function<Date, Boolean> callback, int delay) {
         Calendar calendar = Calendar.getInstance();
         calendar.setTime(date);
         calendar.add(Calendar.DATE, delay);

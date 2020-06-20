@@ -16,6 +16,6 @@ public class PlayerGenerator extends HumanGenerator{
             1.0,
             0,
             knownTechnologies,
-            2000);
+            new Money(2000));
     }
 }
