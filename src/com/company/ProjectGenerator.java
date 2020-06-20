@@ -32,8 +32,11 @@ public class ProjectGenerator {
 
     private static String generateProjectName() {
         Random random = new Random();
-        String[] noun = {"webpage", "project", "shop", "game", "wiki", "casino"};
-        String[] verb = {"management", "improvement", "support", "hardening", "pentesting", "testing", "development"};
+        String[] noun = {"webpage", "project", "shop", "game", "wiki", "casino", "product", "content", "in-house",
+                         "java", "cloud", "python", "C#", "embedded", "server", "desktop", "manual", "automated",
+                         "unity", "ios", "media", "sound", "security"};
+        String[] verb = {"management", "improvement", "support", "hardening", "pentesting", "testing", "development",
+                         "design", "programming", "executive", "translation", "QA"};
         return noun[random.nextInt(noun.length)] + " " + verb[random.nextInt(verb.length)];
     }
 
