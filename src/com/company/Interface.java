@@ -3,6 +3,8 @@ package com.company;
 import javafx.util.Pair;
 
 import java.io.IOException;
+import java.util.Calendar;
+import java.util.Date;
 
 import static java.lang.Character.toUpperCase;
 
@@ -10,6 +12,7 @@ public class Interface {
 
     private static Interface instance;
     private Player currentPlayer;
+    private Date currentDate;
 
     public static Interface getInstance() {
         if(instance == null) {
@@ -22,6 +25,12 @@ public class Interface {
         boolean exit = false;
         while(!exit) {
             System.out.println("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n");
+            Calendar calendar = Calendar.getInstance();
+            calendar.setTime(currentDate);
+            System.out.println(
+                    calendar.get(Calendar.DATE) + "/"
+                  + calendar.get(Calendar.MONTH)+1 + "/"
+                  + calendar.get(Calendar.YEAR) + "\n");
             System.out.println(currentPlayer + "\n");
             System.out.println("you have: " + currentPlayer.getCash() + "\n");
             System.out.println(menu);
@@ -75,5 +84,9 @@ public class Interface {
 
     public void setCurrentPlayer(Player player) {
         currentPlayer = player;
+    }
+
+    public void setCurrentDate(Date date) {
+        currentDate = date;
     }
 }

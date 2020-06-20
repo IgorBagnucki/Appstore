@@ -16,7 +16,7 @@ public class Main {
                         .99,
                         0,
                         new TechnologiesWrapper<>(100),
-                        new Money(1500)));
+                        new Money(150)));
         Game game = Game.getInstance();
         game.setPlayers(players);
         game.play();

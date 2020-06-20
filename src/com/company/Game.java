@@ -92,6 +92,7 @@ public class Game {
     }
 
     public void turn() {
+        Interface.getInstance().setCurrentDate(date);
         for(Player currentPlayer : players) {
             if(!currentPlayer.isDefeated()) {
                 playerTurn(currentPlayer);
