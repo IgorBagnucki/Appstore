@@ -16,36 +16,26 @@ public class Game {
     private final List<Pair<Date, Function<Date, Boolean>>> registeredCallbacks = new ArrayList<>();
 
     private List<Player> players;
-    private final List<Project> availableProjects = new ArrayList<>();
+    private final List<Project> availableProjects   = new ArrayList<>();
     private final List<Worker> availableProgrammers = new ArrayList<>();
-    private final List<Worker> availableTesters = new ArrayList<>();
-    private final List<Worker> availableSellers = new ArrayList<>();
-    private final List<Worker> availableColleagues = new ArrayList<>();
+    private final List<Worker> availableTesters     = new ArrayList<>();
+    private final List<Worker> availableSellers     = new ArrayList<>();
+    private final List<Worker> availableColleagues  = new ArrayList<>();
 
-    private final Menu mainGameMenu = new Menu();
-    private final MenuOption employProgrammer = new MenuOption("Employ a programmer", "");
-    private final MenuOption employColleague = new MenuOption("Employ an colleague", "");
-    private final MenuOption employTester = new MenuOption("Employ a tester", "");
-    private final MenuOption employSeller = new MenuOption("Employ a seller", "");
-    private final MenuOption findProject = new MenuOption("Find new project", "");
-    private final MenuOption fireWorker = new MenuOption("Fire a worker", "");
-    private final MenuOption testCode = new MenuOption("Test your project", "");
-    private final MenuOption developCode = new MenuOption("Develop your project", "");
-    private final MenuOption settleWithAuthorities = new MenuOption("Settle with authorities", "");
+    private static final MenuOption employProgrammer      = new MenuOption("Employ a programmer", "");
+    private static final MenuOption employColleague       = new MenuOption("Employ a colleague", "");
+    private static final MenuOption employTester          = new MenuOption("Employ a tester", "");
+    private static final MenuOption employSeller          = new MenuOption("Employ a seller", "");
+    private static final MenuOption findProject           = new MenuOption("Find new project", "");
+    private static final MenuOption fireWorker            = new MenuOption("Fire a worker", "");
+    private static final MenuOption testCode              = new MenuOption("Test your project", "");
+    private static final MenuOption developCode           = new MenuOption("Develop your project", "");
+    private static final MenuOption settleWithAuthorities = new MenuOption("Settle with authorities", "");
 
     private Game() {
         Calendar calendar = Calendar.getInstance();
         calendar.set(2020, Calendar.JANUARY, 1);
         date = calendar.getTime();
-        mainGameMenu.add(employProgrammer);
-        mainGameMenu.add(employColleague);
-        mainGameMenu.add(employTester);
-        mainGameMenu.add(employSeller);
-        mainGameMenu.add(findProject);
-        mainGameMenu.add(fireWorker);
-        mainGameMenu.add(testCode);
-        mainGameMenu.add(developCode);
-        mainGameMenu.add(settleWithAuthorities);
 
         availableColleagues.add(ColleagueFactory.get(Colleague.Type.BEST));
         availableColleagues.add(ColleagueFactory.get(Colleague.Type.MID));
@@ -158,11 +148,21 @@ public class Game {
     }
 
     private void playerActions(Player player) {
+        Menu mainGameMenu = new Menu();
+        if(availableProgrammers.size()        > 0) {mainGameMenu.add(employProgrammer);}
+        if(availableColleagues.size()         > 0) {mainGameMenu.add(employColleague);}
+        if(availableTesters.size()            > 0) {mainGameMenu.add(employTester);}
+        if(availableSellers.size()            > 0) {mainGameMenu.add(employSeller);}
+        if(availableProjects.size()           > 0) {mainGameMenu.add(findProject);}
+        if(player.getEmployedWorkers().size() > 0) {mainGameMenu.add(fireWorker);}
+        if(player.getProjects().size()        > 0) {mainGameMenu.add(testCode);}
+        if(player.getProjects().size()        > 0) {mainGameMenu.add(developCode);}
+                                                    mainGameMenu.add(settleWithAuthorities);
         MenuOption selectedOption = Interface.getInstance().displayMenu(mainGameMenu).getKey();
         if(selectedOption == employProgrammer
-                || selectedOption == employColleague
-                || selectedOption == employTester
-                || selectedOption == employSeller) {
+        || selectedOption == employColleague
+        || selectedOption == employTester
+        || selectedOption == employSeller) {
             List<Worker> selectedList;
             if(selectedOption == employProgrammer) {
                 selectedList = availableProgrammers;

@@ -78,6 +78,10 @@ public class Menu {
         options.add(index, option);
     }
 
+    public void clear() {
+        options = new ArrayList<>();
+    }
+
     public void removeLast() {
         if(options.size() >= 1) {
             options.remove(options.size()-1);
