@@ -35,6 +35,7 @@ public class Player extends Programmer {
             knownTechnologies);
         this.cash = cash;
         startingMoney.set(cash);
+        employer = this;
     }
 
     public List<Project> getProjects() {

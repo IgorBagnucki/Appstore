@@ -23,7 +23,7 @@ public class ProjectGenerator {
         TechnologiesWrapper<Integer> technologyWorkDays = new TechnologiesWrapper<>(0);
         Integer[] technologyIndexes = {0, 1, 2, 3, 4, 5};
         Collections.shuffle(Arrays.asList(technologyIndexes));
-        for(int technologyCounter = 0; technologyCounter < random.nextInt(6); ++technologyCounter) {
+        for(int technologyCounter = 0; technologyCounter < random.nextInt(5)+1; ++technologyCounter) {
             technologyWorkDays.setAtIndex(technologyIndexes[technologyCounter], random.nextInt(4)+1);
         }
         return technologyWorkDays;
