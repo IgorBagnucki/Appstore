@@ -9,6 +9,12 @@ public class Player extends Programmer {
     private List<Project> projects = new ArrayList<>();
     private int amountOfTesters = 0;
     private int amountOfProgrammers = 0;
+    private boolean legalProblems = false;
+    private int bigProjectsDoneWithoutPlayerWorking = 0;
+    private Money startingMoney = new Money();
+
+    private static final Money hiringCost = new Money(1000);
+    private static final Money firingCost = new Money(1000);
 
     public Player(
         SeniorityLevel seniorityLevel,
@@ -28,10 +34,19 @@ public class Player extends Programmer {
             maximumDelay,
             knownTechnologies);
         this.cash = cash;
+        startingMoney.set(cash);
     }
 
     public List<Project> getProjects() {
         return projects;
+    }
+
+    boolean isVictorious() {
+        return bigProjectsDoneWithoutPlayerWorking >= 3;
+    }
+
+    boolean isDefeated() {
+        return cash.get() < 0 || legalProblems;
     }
 
     public void employWorker(Worker worker) {
@@ -48,7 +63,9 @@ public class Player extends Programmer {
         projects.add(project);
     }
 
-    public void testCode(Project project) { }
+    public void testCode(Project project) {
+        project.hasErrors = false;
+    }
 
     public void settleWithAuthorities() { }
 
@@ -62,6 +79,10 @@ public class Player extends Programmer {
 
     public void getPayment(Money amount) {
         cash.add(amount);
+    }
+
+    public Money getCash() {
+        return cash;
     }
 
     public void getEmployeesToWork() {

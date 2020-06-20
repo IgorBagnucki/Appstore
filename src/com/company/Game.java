@@ -30,6 +30,7 @@ public class Game {
     private final MenuOption findProject = new MenuOption("Find new project", "");
     private final MenuOption fireWorker = new MenuOption("Fire a worker", "");
     private final MenuOption testCode = new MenuOption("Test your project", "");
+    private final MenuOption developCode = new MenuOption("Develop your project", "");
     private final MenuOption settleWithAuthorities = new MenuOption("Settle with authorities", "");
 
     private Game() {
@@ -43,6 +44,7 @@ public class Game {
         mainGameMenu.add(findProject);
         mainGameMenu.add(fireWorker);
         mainGameMenu.add(testCode);
+        mainGameMenu.add(developCode);
         mainGameMenu.add(settleWithAuthorities);
 
         availableColleagues.add(ColleagueFactory.get(Colleague.Type.BEST));
@@ -72,7 +74,15 @@ public class Game {
     }
 
     public boolean isGameFinished() {
-        return false;
+        boolean noPlayersInGame = true;
+        for(Player player : players) {
+            if(player.isVictorious()) {
+                return true;
+            } else if(!player.isDefeated()) {
+                noPlayersInGame = false;
+            }
+        }
+        return noPlayersInGame;
     }
 
     public void registerCallback(Function<Date, Boolean> callback, int delay) {
@@ -93,7 +103,9 @@ public class Game {
 
     public void turn() {
         for(Player currentPlayer : players) {
-            playerTurn(currentPlayer);
+            if(!currentPlayer.isDefeated()) {
+                playerTurn(currentPlayer);
+            }
         }
         callCallbacks();
         turnIndex += 1;
@@ -135,6 +147,13 @@ public class Game {
     }
 
     private void playerTurn(Player player) {
+        Interface.getInstance().setCurrentPlayer(player);
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(date);
+        int dayOfWeek = calendar.get(Calendar.DAY_OF_WEEK);
+        if(dayOfWeek != Calendar.SATURDAY && dayOfWeek != Calendar.SUNDAY) {
+            player.getEmployeesToWork();
+        }
         playerActions(player);
     }
 
@@ -176,6 +195,8 @@ public class Game {
         } else if(selectedOption == testCode) {
             Project selectedProject = showProjectMenu(player.getProjects());
             player.testCode(selectedProject);
+        } else if(selectedOption == developCode) {
+            player.doWork();
         } else if(selectedOption == settleWithAuthorities) {
             player.settleWithAuthorities();
         }

@@ -9,6 +9,7 @@ import static java.lang.Character.toUpperCase;
 public class Interface {
 
     private static Interface instance;
+    private Player currentPlayer;
 
     public static Interface getInstance() {
         if(instance == null) {
@@ -21,6 +22,8 @@ public class Interface {
         boolean exit = false;
         while(!exit) {
             System.out.println("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n");
+            System.out.println(currentPlayer + "\n");
+            System.out.println("you have: " + currentPlayer.getCash() + "\n");
             System.out.println(menu);
             if(!menu.selectedOption().details.equals("")) {
                 System.out.println(menu.selectedOption().details);
@@ -68,5 +71,9 @@ public class Interface {
             }
         }
         return new Pair<>(menu.selectedOption(), menu.index());
+    }
+
+    public void setCurrentPlayer(Player player) {
+        currentPlayer = player;
     }
 }

@@ -6,6 +6,10 @@ public class Money {
         this.price = price;
     }
 
+    public Money() {
+        this(0);
+    }
+
     public int get() {
         return price;
     }
@@ -25,5 +29,9 @@ public class Money {
     @Override
     public String toString() {
         return price + "$";
+    }
+
+    public void set(Money cash) {
+        set(cash.get());
     }
 }
