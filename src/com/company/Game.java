@@ -157,8 +157,12 @@ public class Game {
         Calendar calendar = Calendar.getInstance();
         calendar.setTime(date);
         int dayOfWeek = calendar.get(Calendar.DAY_OF_WEEK);
+        int dayOfMonth = calendar.get(Calendar.DAY_OF_MONTH);
         if(dayOfWeek != Calendar.SATURDAY && dayOfWeek != Calendar.SUNDAY) {
             player.getEmployeesToWork();
+        }
+        if(dayOfMonth == 24) {
+            player.payTaxes();
         }
         while(playerActions(player));
     }

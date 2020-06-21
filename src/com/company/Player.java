@@ -12,6 +12,7 @@ public class Player extends Programmer {
     private boolean legalProblems = false;
     private int bigProjectsDoneWithoutPlayerWorking = 0;
     private Money startingMoney = new Money();
+    private Money taxToPay = new Money();
 
     private static final Money hiringCost = new Money(1000);
     private static final Money firingCost = new Money(1000);
@@ -80,6 +81,7 @@ public class Player extends Programmer {
 
     public void getPayment(Money amount) {
         cash.add(amount);
+        taxToPay.add(new Money(amount.get() / 10));
     }
 
     public Money getCash() {
@@ -109,5 +111,10 @@ public class Player extends Programmer {
 
     public boolean hasProjectsWithReadyStage() {
         return getProjectsWithReadyStage().size() != 0;
+    }
+
+    public void payTaxes() {
+        cash.subtract(taxToPay);
+        taxToPay.set(0);
     }
 }

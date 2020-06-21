@@ -1,9 +1,9 @@
 package com.company;
 
 public class Money {
-    public int price;
-    Money(int price) {
-        this.price = price;
+    public int amount;
+    Money(int amount) {
+        this.amount = amount;
     }
 
     public Money() {
@@ -11,24 +11,24 @@ public class Money {
     }
 
     public int get() {
-        return price;
+        return amount;
     }
 
     public void set(int value) {
-        price = value;
+        amount = value;
     }
 
     public void subtract(Money other) {
-        price -= other.get();
+        amount -= other.get();
     }
 
     public void add(Money other) {
-        price += other.get();
+        amount += other.get();
     }
 
     @Override
     public String toString() {
-        return price + "$";
+        return amount + "$";
     }
 
     public void set(Money cash) {

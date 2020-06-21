@@ -49,6 +49,7 @@ public class Project {
         }
         return "client: " + client + "\n"
              + bugsInProject + "\n"
+             + "stages: " + numberOfStages + "\n"
              + "time: " + timeBeforeDeadline + "\n"
              + "fee for delay: " + feeForMissingDeadline + "\n"
              + "payment: " + price + "\n\n"
