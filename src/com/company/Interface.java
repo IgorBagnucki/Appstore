@@ -13,6 +13,7 @@ public class Interface {
     private static Interface instance;
     private Player currentPlayer;
     private Date currentDate;
+    private boolean hasToSettle;
 
     public static Interface getInstance() {
         if(instance == null) {
@@ -33,6 +34,7 @@ public class Interface {
                   + calendar.get(Calendar.YEAR) + "\n");
             System.out.println(currentPlayer + "\n");
             System.out.println("you have: " + currentPlayer.getCash() + "\n");
+            if(hasToSettle) {System.out.println("you need to settle with authorities soon\n");}
             System.out.println(menu);
             if(!menu.selectedOption().details.equals("")) {
                 System.out.println(menu.selectedOption().details);
@@ -88,5 +90,9 @@ public class Interface {
 
     public void setCurrentDate(Date date) {
         currentDate = date;
+    }
+
+    public void setSettlingRequired() {
+        hasToSettle = true;
     }
 }

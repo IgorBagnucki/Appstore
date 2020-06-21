@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 import java.util.function.Function;
 
 public class Game {
@@ -163,6 +164,16 @@ public class Game {
         }
         if(dayOfMonth == 24) {
             player.payTaxes();
+        }
+        long lastSettling = TimeUnit.DAYS.convert(
+                getCurrentDate().getTime() - player.lastSettling.getTime(),
+                TimeUnit.MILLISECONDS);
+        if((dayOfMonth >= 3 && dayOfMonth <= 5)
+        || (dayOfMonth >= 18 && dayOfMonth <= 20)
+        && lastSettling >= 15)
+            Interface.getInstance().setSettlingRequired();
+        if((dayOfMonth == 6 || dayOfMonth == 21) && lastSettling > 15) {
+            player.legalProblems = true;
         }
         while(playerActions(player));
     }

@@ -1,18 +1,20 @@
 package com.company;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 public class Player extends Programmer {
+    public boolean legalProblems = false;
     private Money cash;
     private List<Worker> employedWorkers = new ArrayList<>();
     private List<Project> projects = new ArrayList<>();
     private int amountOfTesters = 0;
     private int amountOfProgrammers = 0;
-    private boolean legalProblems = false;
     private int bigProjectsDoneWithoutPlayerWorking = 0;
     private Money startingMoney = new Money();
     private Money taxToPay = new Money();
+    public Date lastSettling;
 
     private static final Money hiringCost = new Money(1000);
     private static final Money firingCost = new Money(1000);
@@ -37,6 +39,7 @@ public class Player extends Programmer {
         this.cash = cash;
         startingMoney.set(cash);
         employer = this;
+        lastSettling = Game.getInstance().getCurrentDate();
     }
 
     public List<Project> getProjects() {
@@ -69,7 +72,9 @@ public class Player extends Programmer {
         project.hasErrors = false;
     }
 
-    public void settleWithAuthorities() { }
+    public void settleWithAuthorities() {
+        lastSettling = Game.getInstance().getCurrentDate();
+    }
 
     public List<Worker> getEmployedWorkers() {
         return employedWorkers;
