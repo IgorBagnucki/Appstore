@@ -19,6 +19,8 @@ abstract public class Worker extends Human {
 
     public abstract void doWork();
 
+    public abstract String getProfessionName();
+
     protected void getEmployer(Player player) {
         employer = player;
     }

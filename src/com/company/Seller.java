@@ -16,4 +16,9 @@ public class Seller extends Worker {
             Game.getInstance().addAvailableProject(ProjectGenerator.generate(client));
         }
     }
+
+    @Override
+    public String getProfessionName() {
+        return "Seller";
+    }
 }

@@ -11,7 +11,7 @@ public class ProjectGenerator {
         return new Project(
                 generateProjectName(),
                 client,
-                new Deadline(technologyWorkDays.addValues()),
+                new Deadline(technologyWorkDays.addValues() + random.nextInt(3)),
                 new Money(random.nextInt(960)+40),
                 new Money(technologyWorkDays.addValues() * (random.nextInt(500)+20)),
                 technologyWorkDays,

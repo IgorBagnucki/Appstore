@@ -21,6 +21,9 @@ public class Project {
     private int numberOfStages;
     private int stagesCompleted = 0;
     private Money moneyPayed = new Money(0);
+    private int stageWorkDays;
+    private int nextStageMilestone;
+    private boolean hasReadyStage = false;
 
     public Project(String name, Client client, Deadline timeBeforeDeadline, Money feeForMissingDeadline, Money price, TechnologiesWrapper<Integer> technologyWorkDays, int numberOfStages) {
         this.name = name;
@@ -35,10 +38,17 @@ public class Project {
                 requiredTechnologies==1 ? ComplexityLevel.EASY :
                 requiredTechnologies==2 ? ComplexityLevel.MEDIUM :
                                           ComplexityLevel.COMPLICATED;
+        stageWorkDays = technologyWorkDays.addValues() / numberOfStages;
+        nextStageMilestone = stageWorkDays;
     }
 
     public String details() {
-        return client
+        String bugsInProject = "";
+        if(hasErrors) {
+            bugsInProject = "\nTESTING REQUIRED\n";
+        }
+        return "client: " + client + "\n"
+             + bugsInProject + "\n"
              + "time: " + timeBeforeDeadline + "\n"
              + "fee for delay: " + feeForMissingDeadline + "\n"
              + "payment: " + price + "\n\n"
@@ -55,6 +65,21 @@ public class Project {
         Game.getInstance().registerCallback(callback, client.getPaymentDelay());
     }
 
+    public void updateStageReadiness() {
+        if(technologyWorkDays.addValues() > nextStageMilestone) {
+            hasReadyStage = true;
+            nextStageMilestone += stageWorkDays;
+            // prevent rounding errors
+            if(nextStageMilestone + stageWorkDays > technologyWorkDays.addValues()) {
+                nextStageMilestone = technologyWorkDays.addValues();
+            }
+        }
+    }
+
+    public boolean hasReadyStage() {
+        return hasReadyStage;
+    }
+
     public void submitStage(Player submitter) {
         ++stagesCompleted;
         Money toPay;
@@ -66,6 +91,7 @@ public class Project {
         }
         registerPayment(toPay, submitter);
         moneyPayed.add(toPay);
+        hasReadyStage = false;
     }
 
     @Override

@@ -9,4 +9,9 @@ public class Deadline {
     public int getDaysLeft() {
         return daysLeft;
     }
+
+    @Override
+    public String toString() {
+        return daysLeft + " days";
+    }
 }

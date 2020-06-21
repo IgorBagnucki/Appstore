@@ -31,6 +31,9 @@ public class Game {
     private static final MenuOption testCode              = new MenuOption("Test your project", "");
     private static final MenuOption developCode           = new MenuOption("Develop your project", "");
     private static final MenuOption settleWithAuthorities = new MenuOption("Settle with authorities", "");
+    private static final MenuOption seeActiveProjects     = new MenuOption("See projects in progress", "");
+    private static final MenuOption seeWorkers            = new MenuOption("See your workers", "");
+    private static final MenuOption submitProject         = new MenuOption("Submit ready project", "");
 
     private Game() {
         Calendar calendar = Calendar.getInstance();
@@ -120,9 +123,17 @@ public class Game {
     }
 
     private Worker showWorkerMenu(List<Worker> list) {
+        return showWorkerMenu(list, false);
+    }
+
+    private Worker showWorkerMenu(List<Worker> list, boolean showProfession) {
         Menu menu = new Menu();
         for(Worker worker : list) {
-            menu.add(new MenuOption(worker.toString(), worker.details()));
+            String workerTitle = worker.toString();
+            if(showProfession) {
+                workerTitle += " - " + worker.getProfessionName();
+            }
+            menu.add(new MenuOption(workerTitle, worker.details()));
         }
         int workerIndex = Interface.getInstance().displayMenu(menu).getValue();
         return list.get(workerIndex);
@@ -131,7 +142,11 @@ public class Game {
     private Project showProjectMenu(List<Project> projects) {
         Menu menu = new Menu();
         for(Project project : projects) {
-            menu.add(new MenuOption(project.toString(), project.details()));
+            String ready = "";
+            if(project.hasReadyStage()) {
+                ready = " - STAGE COMPLETED";
+            }
+            menu.add(new MenuOption(project.toString()+ready, project.details()));
         }
         int projectIndex = Interface.getInstance().displayMenu(menu).getValue();
         return projects.get(projectIndex);
@@ -145,10 +160,12 @@ public class Game {
         if(dayOfWeek != Calendar.SATURDAY && dayOfWeek != Calendar.SUNDAY) {
             player.getEmployeesToWork();
         }
-        playerActions(player);
+        while(playerActions(player));
     }
 
-    private void playerActions(Player player) {
+    private boolean playerActions(Player player) {
+        boolean turnStillGoing = false;
+        // Create and show menu
         Menu mainGameMenu = new Menu();
         if(availableProgrammers.size()        > 0) {mainGameMenu.add(employProgrammer);}
         if(availableColleagues.size()         > 0) {mainGameMenu.add(employColleague);}
@@ -159,7 +176,12 @@ public class Game {
         if(player.getProjects().size()        > 0) {mainGameMenu.add(testCode);}
         if(player.getProjects().size()        > 0) {mainGameMenu.add(developCode);}
                                                     mainGameMenu.add(settleWithAuthorities);
+        if(player.getProjects().size()        > 0) {mainGameMenu.add(seeActiveProjects);}
+        if(player.getEmployedWorkers().size() > 0) {mainGameMenu.add(seeWorkers);}
+        if(player.hasProjectsWithReadyStage()    ) {mainGameMenu.add(submitProject);}
         MenuOption selectedOption = Interface.getInstance().displayMenu(mainGameMenu).getKey();
+
+        // Do selected action
         if(selectedOption == employProgrammer
         || selectedOption == employColleague
         || selectedOption == employTester
@@ -182,7 +204,7 @@ public class Game {
             availableProjects.remove(selectedProject);
             player.startProject(selectedProject);
         } else if(selectedOption == fireWorker) {
-            Worker firedWorker = showWorkerMenu(player.getEmployedWorkers());
+            Worker firedWorker = showWorkerMenu(player.getEmployedWorkers(), true);
             player.fireWorker(firedWorker);
             if(firedWorker instanceof Colleague) {
                 availableColleagues.add(firedWorker);
@@ -200,6 +222,16 @@ public class Game {
             player.doWork();
         } else if(selectedOption == settleWithAuthorities) {
             player.settleWithAuthorities();
+        } else if(selectedOption == seeActiveProjects) {
+            turnStillGoing = true;
+            showProjectMenu(player.getProjects());
+        } else if(selectedOption == seeWorkers) {
+            turnStillGoing = true;
+            showWorkerMenu(player.getEmployedWorkers(), true);
+        } else if(selectedOption == submitProject) {
+            Project selectedProject = showProjectMenu(player.getProjectsWithReadyStage());
+            selectedProject.submitStage(player);
         }
+        return turnStillGoing;
     }
 }

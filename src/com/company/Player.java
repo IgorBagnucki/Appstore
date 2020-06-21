@@ -96,4 +96,18 @@ public class Player extends Programmer {
             }
         }
     }
+
+    public List<Project> getProjectsWithReadyStage() {
+        List<Project> readyProjects = new ArrayList<>();
+        for(Project project : projects) {
+            if(project.hasReadyStage()) {
+                readyProjects.add(project);
+            }
+        }
+        return readyProjects;
+    }
+
+    public boolean hasProjectsWithReadyStage() {
+        return getProjectsWithReadyStage().size() != 0;
+    }
 }

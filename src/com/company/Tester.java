@@ -8,4 +8,10 @@ public class Tester extends Worker {
 
     @Override
     public void doWork() { }
+
+    @Override
+    public String getProfessionName() {
+        return "Tester";
+    }
+
 }

@@ -44,7 +44,7 @@ public class Programmer extends Worker {
         for(int technologyIndex : technologyIndexesByKnowledge) {
             boolean workDoneForToday = false;
             for(Project project : employer.getProjects()) {
-                if(project.technologyWorkDays.getAtIndex(technologyIndex) > 0) {
+                if(project.technologyWorkDays.getAtIndex(technologyIndex) > 0 && !project.hasReadyStage()) {
                     project.technologyWorkDays.setAtIndex(
                             technologyIndex,
                             project.technologyWorkDays.getAtIndex(technologyIndex) - 1);
@@ -60,6 +60,11 @@ public class Programmer extends Worker {
                 break;
             }
         }
+    }
+
+    @Override
+    public String getProfessionName() {
+        return "Programmer";
     }
 
     public TechnologiesWrapper<Integer> getKnownTechnologies() {
