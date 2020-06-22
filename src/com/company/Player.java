@@ -87,6 +87,10 @@ public class Player extends Programmer {
         cash.subtract(Game.COST_OF_FIRING);
     }
 
+    public void removeProject(Project project) {
+        projects.remove(project);
+    }
+
     public void getPayment(Money amount) {
         cash.add(amount);
         taxToPay.add(new Money(amount.get() / Game.TAX_PERCENTAGE));

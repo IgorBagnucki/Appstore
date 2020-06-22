@@ -35,7 +35,7 @@ public class ProjectGenerator {
                          "java", "cloud", "python", "C#", "embedded", "server", "desktop", "manual", "automated",
                          "unity", "ios", "media", "sound", "security"};
         String[] verb = {"management", "improvement", "support", "hardening", "pentesting", "testing", "development",
-                         "design", "programming", "executive", "translation", "QA"};
+                         "design", "programming", "translation", "QA"};
         return noun[random.nextInt(noun.length)] + " " + verb[random.nextInt(verb.length)];
     }
 

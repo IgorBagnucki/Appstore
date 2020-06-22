@@ -49,6 +49,7 @@ public class Programmer extends Worker {
                     project.technologyWorkDays.setAtIndex(
                             technologyIndex,
                             project.technologyWorkDays.getAtIndex(technologyIndex) - 1);
+                    project.updateStageReadiness();
                     Random random = new Random();
                     if(random.nextInt(100) >= knownTechnologies.getAtIndex(technologyIndex)) {
                         project.hasErrors = true;

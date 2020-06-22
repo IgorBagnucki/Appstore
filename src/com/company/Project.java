@@ -93,6 +93,9 @@ public class Project {
         registerPayment(toPay, submitter);
         moneyPayed.add(toPay);
         hasReadyStage = false;
+        if(stagesCompleted == numberOfStages) {
+            submitter.removeProject(this);
+        }
     }
 
     @Override
