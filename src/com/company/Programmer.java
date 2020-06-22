@@ -10,9 +10,9 @@ public class Programmer extends Worker {
         SENIOR
     }
     protected TechnologiesWrapper<Integer> knownTechnologies;
-    private double workAccuracy;
-    private int maximumDelay;
-    private int[] technologyIndexesByKnowledge = {0, 1, 2, 3, 4, 5};
+    private final double workAccuracy;
+    private final int maximumDelay;
+    private final int[] technologyIndexesByKnowledge = {0, 1, 2, 3, 4, 5};
     protected SeniorityLevel seniorityLevel;
 
     public Programmer(

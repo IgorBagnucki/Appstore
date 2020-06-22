@@ -10,9 +10,9 @@ public class Client extends Human {
         BASTARD
     }
 
-    private Type type;
-    private int timeBeforePayment;
-    private boolean requiresFee;
+    private final Type type;
+    private final int timeBeforePayment;
+    private final boolean requiresFee;
 
     protected Client(String firstName, String lastName, Type type, int timeBeforePayment) {
         super(firstName, lastName);

@@ -1,7 +1,7 @@
 package com.company;
 
 abstract public class Worker extends Human {
-    private int expectedRemuneration;
+    private final int expectedRemuneration;
     protected Player employer;
 
     public Worker(String firstName, String lastName, int expectedRemuneration) {

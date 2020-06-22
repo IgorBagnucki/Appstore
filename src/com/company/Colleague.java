@@ -6,7 +6,7 @@ public class Colleague extends Programmer {
         MID,
         COCKY
     }
-    private Type type;
+    private final Type type;
     public Colleague(
             SeniorityLevel seniorityLevel,
             String firstName,

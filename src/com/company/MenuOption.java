@@ -6,7 +6,7 @@ import java.util.List;
 public class MenuOption {
     public String description;
     public String details;
-    private ArrayList<MenuOptionState> states = new ArrayList<>();
+    private final ArrayList<MenuOptionState> states = new ArrayList<>();
     int stateIndex = 0;
 
     public boolean isConfiguration() {

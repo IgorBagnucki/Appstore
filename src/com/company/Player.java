@@ -6,14 +6,14 @@ import java.util.List;
 
 public class Player extends Programmer {
     public boolean legalProblems = false;
-    private Money cash;
-    private List<Worker> employedWorkers = new ArrayList<>();
-    private List<Project> projects = new ArrayList<>();
+    private final Money cash;
+    private final List<Worker> employedWorkers = new ArrayList<>();
+    private final List<Project> projects = new ArrayList<>();
     private int amountOfTesters = 0;
     private int amountOfProgrammers = 0;
     private int bigProjectsDoneWithoutPlayerWorking = 0;
-    private Money startingMoney = new Money();
-    private Money taxToPay = new Money();
+    private final Money startingMoney = new Money();
+    private final Money taxToPay = new Money();
     public Date lastSettling;
 
     public Player(

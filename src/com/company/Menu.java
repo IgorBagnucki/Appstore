@@ -8,7 +8,7 @@ import java.util.List;
 public class Menu {
     private ArrayList<MenuOption> options = new ArrayList<>();
     private int selectedOptionIndex;
-    private Pair<String, String> prompt;
+    private final Pair<String, String> prompt;
 
     public Menu() {
         this(new ArrayList<>());
