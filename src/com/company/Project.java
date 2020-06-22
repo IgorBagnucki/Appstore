@@ -17,8 +17,8 @@ public class Project {
     public final Money feeForMissingDeadline;
     public ComplexityLevel complexity;
     public boolean playerWorked = false;
+    public final Client client;
     private final String name;
-    private final Client client;
     private final Money price;
     private final int numberOfStages;
     private int stagesCompleted = 0;
@@ -107,8 +107,10 @@ public class Project {
         } else {
             toPay = new Money(price.get() / numberOfStages);
         }
-        registerPayment(toPay, submitter);
-        moneyPayed.add(toPay);
+        if(client.acceptsProject(this)) {
+            registerPayment(toPay, submitter);
+            moneyPayed.add(toPay);
+        }
         hasReadyStage = false;
         if(stagesCompleted == numberOfStages) {
             submitter.completeProject(this);

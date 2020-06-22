@@ -15,6 +15,7 @@ public class Game {
     public static final Money MONTHLY_FEE_FOR_EMPLOYEE = new Money(200);
     public static final int AMOUNT_OF_PROGRAMMERS_PER_TESTER = 3;
     public static final int TAX_PERCENTAGE = 10;
+    public static final int AMOUNT_OF_STARTING_PROJECTS = 3;
 
     private static Game instance;
 
@@ -49,7 +50,7 @@ public class Game {
         availableColleagues.add(ColleagueFactory.get(Colleague.Type.BEST));
         availableColleagues.add(ColleagueFactory.get(Colleague.Type.MID));
         availableColleagues.add(ColleagueFactory.get(Colleague.Type.COCKY));
-        for(int i = 0; i < 6; ++i) {
+        for(int i = 0; i < AMOUNT_OF_STARTING_PROJECTS; ++i) {
             availableProgrammers.add(ProgrammerGenerator.generate());
             availableTesters.add(TesterGenerator.generate());
             availableSellers.add(SellerGenerator.generate());
@@ -165,7 +166,9 @@ public class Game {
     private void playerTurn(Player player) {
         for(Project project : player.getProjects()) {
             if(project.getDeadline().compareTo(date) < 0) {
-                player.payFeeForMissingDeadline(project.feeForMissingDeadline);
+                if(project.client.requiresFee()) {
+                    player.payFeeForMissingDeadline(project.feeForMissingDeadline);
+                }
             }
         }
         Interface.getInstance().setCurrentPlayer(player);

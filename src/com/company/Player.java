@@ -86,7 +86,9 @@ public class Player extends Programmer {
     }
 
     public void completeProject(Project project) {
-        if(project.complexity == Project.ComplexityLevel.COMPLICATED && !project.playerWorked) {
+        if(project.complexity == Project.ComplexityLevel.COMPLICATED
+        && !project.playerWorked
+        && project.client.acceptsProject(project)) {
             ++bigProjectsDoneWithoutPlayerWorking;
         }
         projects.remove(project);

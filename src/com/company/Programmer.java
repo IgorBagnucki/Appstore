@@ -85,7 +85,7 @@ public class Programmer extends Worker {
     }
 
     private void sortTechnologyIndexesByKnowledge() {
-        // Find out how to use Arrays.sort(<Array>, <Lambda>) with elegance
+        // TODO: Find out how to use Arrays.sort(<Array>, <Lambda>) with elegance
         for(int i = 0; i < technologyIndexesByKnowledge.length; ++i) {
             for(int j = 0; j < technologyIndexesByKnowledge.length-i-1; ++j) {
                 if(knownTechnologies.getAtIndex(j) > knownTechnologies.getAtIndex(j+1)) {
