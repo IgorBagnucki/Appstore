@@ -10,9 +10,14 @@ import java.util.concurrent.TimeUnit;
 import java.util.function.Function;
 
 public class Game {
+    public static final Money COST_OF_NEW_EMPLOY = new Money(100);
+    public static final Money COST_OF_FIRING = new Money(100);
+    public static final Money MONTHLY_FEE_FOR_EMPLOYEE = new Money(200);
+    public static final int AMOUNT_OF_PROGRAMMERS_PER_TESTER = 3;
+    public static final int TAX_PERCENTAGE = 10;
+
     private static Game instance;
 
-    private int turnIndex = 0;
     private Date date;
     private final List<Pair<Date, Function<Date, Boolean>>> registeredCallbacks = new ArrayList<>();
 
@@ -103,7 +108,6 @@ public class Game {
             }
         }
         callCallbacks();
-        turnIndex += 1;
         Calendar calendar = Calendar.getInstance();
         calendar.setTime(date);
         calendar.add(Calendar.DATE, 1);
@@ -164,6 +168,9 @@ public class Game {
         }
         if(dayOfMonth == 24) {
             player.payTaxes();
+        }
+        if(dayOfMonth == 26) {
+            player.payEmployees();
         }
         long lastSettling = TimeUnit.DAYS.convert(
                 getCurrentDate().getTime() - player.lastSettling.getTime(),

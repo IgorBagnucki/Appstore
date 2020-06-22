@@ -55,6 +55,7 @@ public class Player extends Programmer {
     }
 
     public void employWorker(Worker worker) {
+        cash.subtract(Game.COST_OF_NEW_EMPLOY);
         getEmployedWorkers().add(worker);
         worker.getEmployer(this);
         if(worker instanceof Programmer) {
@@ -81,12 +82,14 @@ public class Player extends Programmer {
     }
 
     public void fireWorker(Worker workerToFire) {
+
         employedWorkers.remove(workerToFire);
+        cash.subtract(Game.COST_OF_FIRING);
     }
 
     public void getPayment(Money amount) {
         cash.add(amount);
-        taxToPay.add(new Money(amount.get() / 10));
+        taxToPay.add(new Money(amount.get() / Game.TAX_PERCENTAGE));
     }
 
     public Money getCash() {
@@ -97,10 +100,17 @@ public class Player extends Programmer {
         for(Worker worker : employedWorkers) {
             worker.doWork();
         }
-        if(amountOfTesters * 3 >= amountOfProgrammers) {
+        if(amountOfTesters * Game.AMOUNT_OF_PROGRAMMERS_PER_TESTER >= amountOfProgrammers) {
             for(Project project : projects) {
                 project.hasErrors = false;
             }
+        }
+    }
+
+    public void payEmployees() {
+        for(Worker employee : employedWorkers) {
+            cash.subtract(employee.getExpectedRemuneration());
+            cash.subtract(Game.MONTHLY_FEE_FOR_EMPLOYEE);
         }
     }
 

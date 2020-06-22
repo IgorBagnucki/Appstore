@@ -28,6 +28,7 @@ public class Programmer extends Worker {
         this.workAccuracy = workAccuracy;
         this.maximumDelay = maximumDelay;
         this.knownTechnologies = new TechnologiesWrapper<>(knownTechnologies);
+        sortTechnologyIndexesByKnowledge();
     }
 
     @Override

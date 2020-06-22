@@ -19,11 +19,19 @@ public class Money {
     }
 
     public void subtract(Money other) {
-        amount -= other.get();
+        subtract(other.get());
+    }
+
+    public void subtract(int value) {
+        amount -= value;
     }
 
     public void add(Money other) {
-        amount += other.get();
+        add(other.get());
+    }
+
+    public void add(int value) {
+        amount += value;
     }
 
     @Override
