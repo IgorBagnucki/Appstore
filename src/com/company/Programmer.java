@@ -54,6 +54,9 @@ public class Programmer extends Worker {
                     if(random.nextInt(100) >= knownTechnologies.getAtIndex(technologyIndex)) {
                         project.hasErrors = true;
                     }
+                    if(this instanceof Player) {
+                        project.playerWorked = true;
+                    }
                     workDoneForToday = true;
                     break;
                 }

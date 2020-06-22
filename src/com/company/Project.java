@@ -12,18 +12,19 @@ public class Project {
     }
     public TechnologiesWrapper<Integer> technologyWorkDays;
     public boolean hasErrors = false;
-    private String name;
-    private Client client;
-    private Deadline timeBeforeDeadline;
-    private Money feeForMissingDeadline;
-    private Money price;
-    private ComplexityLevel complexity;
-    private int numberOfStages;
+    private final String name;
+    private final Client client;
+    private final Deadline timeBeforeDeadline;
+    private final Money feeForMissingDeadline;
+    private final Money price;
+    public ComplexityLevel complexity;
+    private final int numberOfStages;
     private int stagesCompleted = 0;
-    private Money moneyPayed = new Money(0);
-    private int stageWorkDays;
+    private final Money moneyPayed = new Money(0);
+    private final int stageWorkDays;
     private int nextStageMilestone;
     private boolean hasReadyStage = false;
+    public boolean playerWorked = false;
 
     public Project(String name, Client client, Deadline timeBeforeDeadline, Money feeForMissingDeadline, Money price, TechnologiesWrapper<Integer> technologyWorkDays, int numberOfStages) {
         this.name = name;
@@ -94,7 +95,7 @@ public class Project {
         moneyPayed.add(toPay);
         hasReadyStage = false;
         if(stagesCompleted == numberOfStages) {
-            submitter.removeProject(this);
+            submitter.completeProject(this);
         }
     }
 

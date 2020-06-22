@@ -48,5 +48,18 @@ public class Main {
         Game game = Game.getInstance();
         game.setPlayers(players);
         game.play();
+        for(Player player : players) {
+            if(player.isDefeated()) {
+                if(player.legalProblems) {
+                    System.out.println(player + " is defeated with " + player.getCash() + " and legal problems");
+                } else {
+                    System.out.println(player + " is defeated with " + player.getCash());
+                }
+            } else if(player.isVictorious()) {
+                System.out.println(player + " won with " + player.getCash());
+            } else {
+                System.out.println(player + "is not defeated nor victorious with " + player.getCash());
+            }
+        }
     }
 }

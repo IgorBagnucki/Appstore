@@ -16,9 +16,6 @@ public class Player extends Programmer {
     private Money taxToPay = new Money();
     public Date lastSettling;
 
-    private static final Money hiringCost = new Money(1000);
-    private static final Money firingCost = new Money(1000);
-
     public Player(
         SeniorityLevel seniorityLevel,
         String firstName,
@@ -87,7 +84,10 @@ public class Player extends Programmer {
         cash.subtract(Game.COST_OF_FIRING);
     }
 
-    public void removeProject(Project project) {
+    public void completeProject(Project project) {
+        if(project.complexity == Project.ComplexityLevel.COMPLICATED && !project.playerWorked) {
+            ++bigProjectsDoneWithoutPlayerWorking;
+        }
         projects.remove(project);
     }
 
