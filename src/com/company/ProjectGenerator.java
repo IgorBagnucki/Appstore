@@ -15,7 +15,8 @@ public class ProjectGenerator {
                 new Money(random.nextInt(960)+40),
                 new Money(technologyWorkDays.addValues() * (random.nextInt(500)+20)),
                 technologyWorkDays,
-                random.nextInt(5)+1);
+                random.nextInt(5)+1
+        );
     }
 
     private static TechnologiesWrapper<Integer> generateTechnologyWorkDays() {

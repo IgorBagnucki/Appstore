@@ -1,5 +1,6 @@
 package com.company;
 
+import java.util.Calendar;
 import java.util.Date;
 import java.util.function.Function;
 
@@ -12,21 +13,29 @@ public class Project {
     }
     public TechnologiesWrapper<Integer> technologyWorkDays;
     public boolean hasErrors = false;
+    public final Deadline timeBeforeDeadline;
+    public final Money feeForMissingDeadline;
+    public ComplexityLevel complexity;
+    public boolean playerWorked = false;
     private final String name;
     private final Client client;
-    private final Deadline timeBeforeDeadline;
-    private final Money feeForMissingDeadline;
     private final Money price;
-    public ComplexityLevel complexity;
     private final int numberOfStages;
     private int stagesCompleted = 0;
     private final Money moneyPayed = new Money(0);
     private final int stageWorkDays;
     private int nextStageMilestone;
     private boolean hasReadyStage = false;
-    public boolean playerWorked = false;
+    public Date startingDate;
 
-    public Project(String name, Client client, Deadline timeBeforeDeadline, Money feeForMissingDeadline, Money price, TechnologiesWrapper<Integer> technologyWorkDays, int numberOfStages) {
+    public Project(
+            String name,
+            Client client,
+            Deadline timeBeforeDeadline,
+            Money feeForMissingDeadline,
+            Money price,
+            TechnologiesWrapper<Integer> technologyWorkDays,
+            int numberOfStages) {
         this.name = name;
         this.client = client;
         this.timeBeforeDeadline = timeBeforeDeadline;
@@ -41,6 +50,13 @@ public class Project {
                                           ComplexityLevel.COMPLICATED;
         stageWorkDays = technologyWorkDays.addValues() / numberOfStages;
         nextStageMilestone = stageWorkDays;
+    }
+
+    public Date getDeadline() {
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(startingDate);
+        calendar.add(Calendar.DATE, timeBeforeDeadline.getTime());
+        return calendar.getTime();
     }
 
     public String details() {

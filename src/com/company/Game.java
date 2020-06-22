@@ -103,6 +103,11 @@ public class Game {
     public void turn() {
         Interface.getInstance().setCurrentDate(date);
         for(Player currentPlayer : players) {
+            for(Project project : currentPlayer.getProjects()) {
+                if(project.timeBeforeDeadline.getTime() < 0) {
+                    currentPlayer.payFeeForMissingDeadline(project.feeForMissingDeadline);
+                }
+            }
             if(!currentPlayer.isDefeated()) {
                 playerTurn(currentPlayer);
             }
@@ -158,6 +163,11 @@ public class Game {
     }
 
     private void playerTurn(Player player) {
+        for(Project project : player.getProjects()) {
+            if(project.getDeadline().compareTo(date) < 0) {
+                player.payFeeForMissingDeadline(project.feeForMissingDeadline);
+            }
+        }
         Interface.getInstance().setCurrentPlayer(player);
         Calendar calendar = Calendar.getInstance();
         calendar.setTime(date);

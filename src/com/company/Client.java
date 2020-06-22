@@ -3,6 +3,7 @@ package com.company;
 import java.util.Random;
 
 public class Client extends Human {
+
     public enum Type{
         CHILLED,
         SERIOUS,
@@ -45,15 +46,4 @@ public class Client extends Human {
         }
         return paymentDelay;
     }
-
-    public void returnProject(Project project) {
-        Random random = new Random();
-        if(type == Type.CHILLED) {
-        } else if(type == Type.SERIOUS) {
-
-        } else {
-
-        }
-    }
-
 }

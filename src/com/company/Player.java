@@ -63,6 +63,7 @@ public class Player extends Programmer {
     }
 
     public void startProject(Project project) {
+        project.startingDate = Game.getInstance().getCurrentDate();
         projects.add(project);
     }
 
@@ -135,5 +136,10 @@ public class Player extends Programmer {
     public void payTaxes() {
         cash.subtract(taxToPay);
         taxToPay.set(0);
+    }
+
+    public void payFeeForMissingDeadline(Money fee) {
+        cash.subtract(fee);
+        taxToPay.add(new Money(fee.get() / Game.TAX_PERCENTAGE));
     }
 }

@@ -1,12 +1,12 @@
 package com.company;
 
 public class Deadline {
-    private int daysLeft;
+    private final int daysLeft;
     public Deadline(int daysLeft) {
         this.daysLeft = daysLeft;
     }
 
-    public int getDaysLeft() {
+    public int getTime() {
         return daysLeft;
     }
 
